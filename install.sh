@@ -18,10 +18,10 @@ fi
 
 # copy the configs to config location
 if [ -d "~/.config/nvim" ]; then
-	curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
+    curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
 else
     mkdir ~/.config/nvim
-	curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
+    curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
 fi
 
 nvim -es +PlugInstall
