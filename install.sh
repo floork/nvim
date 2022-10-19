@@ -4,14 +4,14 @@
 if [ -x "$(command -v pacman)" ]
 then
 	sudo pacman -Syu
-	sudo pacman -S --noconfirm --needed ctags nodejs npm
+	sudo pacman -S --noconfirm --needed ctags nodejs npm nvim
 elif [ -x "$(command -v dnf)" ]
 then
-    sudo -S dnf -y install ctags nodejs npm
+    sudo -S dnf -y install ctags nodejs npm nvim
 elif [ -x "$(command -v apt-get)" ]
 then
     sudo apt-get update && sudo apt-get upgrade
-    sudo apt-get -y --yes install exuberant-ctags nodejs npm
+    sudo apt-get -y --yes install exuberant-ctags nodejs npm nvim
 else
     echo 'This Distro is not supported!'
 fi
@@ -23,3 +23,10 @@ else
     mkdir ~/.config/nvim
 	curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
 fi
+
+nvim -es +PlugInstall
+
+cd ~/.config/nvim/plugged/coc.nvim/
+
+yarn install
+yarn build
