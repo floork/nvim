@@ -1,4 +1,4 @@
 # just run 
 ```sh
-curl -s https://raw.githubusercontent.com/floork/my_shell/main/install.sh > testing.sh
+curl -s -L https://raw.githubusercontent.com/floork/nvim/main/install.sh | bash
 ```
