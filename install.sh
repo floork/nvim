@@ -16,6 +16,8 @@ else
     echo 'This Distro is not supported!'
 fi
 
+wait
+
 # copy the configs to config location
 if [ -d "~/.config/nvim" ]; then
     curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
@@ -24,9 +26,13 @@ else
     curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
 fi
 
+wait
+
 nvim --headless +PlugInstall +qall
 
-cd ~/.config/nvim/plugged/coc.nvim/
+wait
 
+cd ~/.config/nvim/plugged/coc.nvim/
 yarn install
+wait
 yarn build
