@@ -24,7 +24,7 @@ else
     curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
 fi
 
-sleep 2
+wait
 
 nvim -es +PlugInstall
 
