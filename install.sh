@@ -4,14 +4,14 @@
 if [ -x "$(command -v pacman)" ]
 then
 	sudo pacman -Syu
-	sudo pacman -S --noconfirm --needed ctags nodejs npm nvim
+	sudo pacman -S --noconfirm --needed ctags nodejs npm neovim
 elif [ -x "$(command -v dnf)" ]
 then
-    sudo -S dnf -y install ctags nodejs npm nvim
+    sudo -S dnf -y install ctags nodejs npm neovim
 elif [ -x "$(command -v apt-get)" ]
 then
     sudo apt-get update && sudo apt-get upgrade
-    sudo apt-get -y --yes install exuberant-ctags nodejs npm nvim
+    sudo apt-get -y --yes install exuberant-ctags nodejs npm neovim
 else
     echo 'This Distro is not supported!'
 fi
