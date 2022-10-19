@@ -28,7 +28,7 @@ fi
 
 wait
 
-nvim --headless +PlugInstall +qall
+nvim --headless +PlugInstall +qall 2> /dev/null
 
 wait
 
