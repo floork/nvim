@@ -31,6 +31,8 @@ wait
 nvim --headless +PlugInstall +qall 2> /dev/null
 
 wait
+npm install --global yarn
+wait
 
 cd ~/.config/nvim/plugged/coc.nvim/
 yarn install
