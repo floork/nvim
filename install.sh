@@ -27,13 +27,16 @@ else
 fi
 
 wait
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+wait
 nvim --headless +PlugInstall +qall 2> /dev/null
 
 wait
 sudo npm install --global yarn
-wait
 
+wait
 cd ~/.config/nvim/plugged/coc.nvim/
 yarn install
 wait
