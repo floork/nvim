@@ -1,10 +1,5 @@
 #!/bin/bash
 
-
-
-
-
-
 CHOICE=$(whiptail --menu "Choose an option" 18 100 10 \
     "Install" "Install Lunarvim and dependencies" \
     "Reinstall" "Reinstall it" \
