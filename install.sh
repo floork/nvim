@@ -1,17 +1,17 @@
 #!/bin/bash
 
 CHOICE=$(whiptail --menu "Choose an option" 18 100 10 \
-    "Install" "Install Lunarvim and dependencies" \
-    "Reinstall" "Reinstall it" \
-    "Exit" "Exit this script" \ 3>&1 1>&2 2>&3)
+    "1)" "Install Lunarvim and dependencies" \
+    "2)" "Reinstall Lunarvim" \
+    "0)" "Exit this script" \ 3>&1 1>&2 2>&3)
     case $CHOICE in
-    "Install")
+    "1)")
         inst
     ;;
-    "Reinstall")
+    "2)")
         reinst
     ;;
-    "Exit")
+    "3)")
         exit
     ;;
     esac
