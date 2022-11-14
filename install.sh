@@ -1,21 +1,21 @@
 #!/bin/bash
 
 CHOICE=$(whiptail --menu "Choose an option" 18 100 10 \
-    "1)" "Install Lunarvim and dependencies" \
-    "2)" "Reinstall Lunarvim" \
-    "0)" "Exit this script" \ 3>&1 1>&2 2>&3)
+    "Install" "Install Lunarvim and dependencies" \
+    "Reinstall" "Reinstall it" \
+    "Exit" "Exit this script" \ 3>&1 1>&2 2>&3)
     case $CHOICE in
-    "1)")
+    "Install")
         inst
     ;;
-    "2)")
+    "Reinstall")
         reinst
     ;;
-    "3)")
+    "Exit")
         exit
     ;;
     esac
-}
+
 
 inst(){
     # install neovim
