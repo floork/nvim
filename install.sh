@@ -11,14 +11,15 @@ CHOICE=$(whiptail --menu "Choose an option" 18 100 10 \
     "Exit" "Exit this script" \ 3>&1 1>&2 2>&3)
     case $CHOICE in
     "Install")
-    inst
+        inst
     ;;
     "Reinstall")
-    reinst
+        reinst
     ;;
     "Exit")
         exit
     ;;
+    esac
 }
 
 inst(){
