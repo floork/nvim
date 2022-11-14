@@ -3,7 +3,8 @@
 CHOICE=$(whiptail --menu "Choose an option" 18 100 10 \
     "Install" "Install Lunarvim and dependencies" \
     "Reinstall" "Reinstall it" \
-    "Exit" "Exit this script" \ 3>&1 1>&2 2>&3)
+    "Exit" "Exit this script" 3>&2 2>&1 1>&3
+    )
     case $CHOICE in
     "Install")
         inst
