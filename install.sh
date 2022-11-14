@@ -1,43 +1,53 @@
 #!/bin/bash
 
-# install the dependencies
-if [ -x "$(command -v pacman)" ]
-then
-	sudo pacman -Syu
-	sudo pacman -S --noconfirm --needed ctags nodejs npm neovim
-elif [ -x "$(command -v dnf)" ]
-then
-    sudo -S dnf -y install ctags nodejs npm neovim
-elif [ -x "$(command -v apt-get)" ]
-then
-    sudo apt-get update && sudo apt-get upgrade
-    sudo apt-get -y --yes install exuberant-ctags nodejs npm neovim
-else
-    echo 'This Distro is not supported!'
-fi
 
-wait
 
-# copy the configs to config location
-if [ -d "~/.config/nvim" ]; then
-    curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
-else
-    mkdir ~/.config/nvim
-    curl -s https://raw.githubusercontent.com/floork/nvim/main/init.vim > ~/.config/nvim/init.vim
-fi
 
-wait
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-wait
-nvim --headless +PlugInstall +qall 2> /dev/null
 
-wait
-sudo npm install --global yarn
+CHOICE=$(whiptail --menu "Choose an option" 18 100 10 \
+    "Install" "Install Lunarvim and dependencies" \
+    "Reinstall" "Reinstall it" \
+    "Exit" "Exit this script" \ 3>&1 1>&2 2>&3)
+    case $CHOICE in
+    "Install")
+    inst
+    ;;
+    "Reinstall")
+    reinst
+    ;;
+    "Exit")
+        exit
+    ;;
+}
 
-wait
-cd ~/.config/nvim/plugged/coc.nvim/
-yarn install
-wait
-yarn build
+inst(){
+    # install neovim
+    bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
+
+    # install lunarvim
+    LV_BRANCH=rolling bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/rolling/utils/installer/install.sh)
+}
+
+reinst(){
+    # Unstow dotfiles
+    echo 'Unstowing dotfiles...'
+    cd ~/.dotfiles && stow --delete lvim
+
+    # Uninstall
+    echo 'Running uninstall script...'
+    bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/uninstall.sh)
+
+    # Install neovim
+    echo 'Installing neovim...'
+    bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
+
+    # Install lunarvim
+    echo 'Installing lunarvim...'
+    LV_BRANCH=rolling bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/rolling/utils/installer/install.sh)
+
+    # Stow dotfiles
+    echo 'Stowing dotfiles...'
+    rm -rf ~/.config/lvim
+    cd ~/.dotfiles && stow lvim
+}
