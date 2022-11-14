@@ -1,13 +1,19 @@
 #!/bin/bash
 
-CHOICE=$(whiptail --menu "Choose an option" 18 100 10 \
-    "Install" "Install Lunarvim and dependencies" \
-    "Reinstall" "Reinstall it" \
-    "Exit" "Exit this script" 3>&2 2>&1 1>&3
+while [ 1 ]
+do
+    sudo -v
+    # Aufbau des Menüs
+    CHOICE=$(
+        whiptail --title "LunarVim installer" --menu "" 16 100 9 \
+        "Install" "Install Lunarvim and dependencies" \
+        "Reinstall" "Reinstall it" \
+        "Exit" "Exit this script" 3>&2 2>&1 1>&3
     )
+    # Zuordnung Funktionen zu Menüpunkten
     case $CHOICE in
     "Install")
-        inst
+    inst
     ;;
     "Reinstall")
         reinst
@@ -16,7 +22,7 @@ CHOICE=$(whiptail --menu "Choose an option" 18 100 10 \
         exit
     ;;
     esac
-
+done
 
 inst(){
     # install neovim
