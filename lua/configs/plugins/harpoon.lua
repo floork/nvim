@@ -4,36 +4,13 @@ return {
     "nvim-lua/plenary.nvim",
   },
   config = function()
-    require("telescope").load_extension("harpoon")
+    local keymap = vim.keymap
+    local mark = require("harpoon.mark")
+    local ui = require("harpoon.ui")
 
-    -- set keymaps
-    local keymap = vim.keymap -- for conciseness
-
-    keymap.set(
-      "n",
-      "<leader>hm",
-      "<cmd>lua require('harpoon.mark').add_file()<cr>",
-      { desc = "Mark file with harpoon" }
-    )
-    keymap.set(
-      "n",
-      "<leader>hr",
-      "<cmd>lua require('harpoon.mark').remove_file()<cr>",
-      { desc = "Remove file from harpoon" }
-    )
-    keymap.set("n", "<leader>hn", "<cmd>lua require('harpoon.ui').nav_next()<cr>", { desc = "Go to next harpoon mark" })
-    keymap.set(
-      "n",
-      "<leader>hp",
-      "<cmd>lua require('harpoon.ui').nav_prev()<cr>",
-      { desc = "Go to previous harpoon mark" }
-    )
-    keymap.set(
-      "n",
-      "<leader>ha",
-      "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
-      { desc = "Toggle harpoon quick menu" }
-    )
-    keymap.set("n", "<leader>hh", "<cmd>Telescope harpoon marks<cr>", { desc = "Show harpoon marks" })
+    keymap.set("n", "<leader>hm", mark.add_file, { desc = "Mark file with harpoon" })
+    keymap.set("n", "<leader>hn", ui.nav_next, { desc = "Go to next harpoon mark" })
+    keymap.set("n", "<leader>hp", ui.nav_prev, { desc = "Go to previous harpoon mark" })
+    keymap.set("n", "<leader>hh", ui.toggle_quick_menu, { desc = "Toggle harpoon quick menu" })
   end,
 }
