@@ -31,25 +31,6 @@ keymap.set("n", "vv", "*", { desc = "Highlight word under cursor", noremap = tru
 -- Clear search highlights
 keymap.set("n", "<leader>nh", "<cmd>nohl<CR>", { desc = "Clear search highlights", noremap = true, silent = true })
 
--- open terminal
-local termIsOpen = false
-
-keymap.set("n", "<leader>t", function()
-  if termIsOpen then
-    local i = vim.fn.bufnr("$")
-    while i >= 1 do
-      if vim.fn.getbufvar(i, "&filetype") == "terminal" then
-        vim.cmd("bwipeout " .. i)
-      end
-      i = i - 1
-    end
-    termIsOpen = false
-  else
-    termIsOpen = true
-    vim.cmd("vsplit | term")
-  end
-end, { desc = "Open terminal", noremap = true, silent = true })
-
 -- netrw
 local netrwIsOpen = false
 

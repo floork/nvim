@@ -1,5 +1,6 @@
 require("configs.core.keymaps")
 require("configs.core.options")
+require("configs.core.toggleterm")
 
 -- netrw
 vim.g.netrw_banner = 0
