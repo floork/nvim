@@ -3,28 +3,11 @@ local s = ls.snippet
 local fmt = require("luasnip.extras.fmt").fmt
 
 ------------------------------------------------------------------------------------------
--- ======== add snipets here ========
-------------------------------------------------------------------------------------------
-
--- Config snippet
-local config_snippet = s(
-  "config",
-  fmt(
-    [[
-config = function()
-
-end,
-]],
-    {}
-  )
-)
-
-------------------------------------------------------------------------------------------
 -- ======== Lua snippets ========
 ------------------------------------------------------------------------------------------
 
 local lua_snippets = {
-  config_snippet,
+  ls.parser.parse_snippet({ trig = "con", name = "config" }, "config = function()\n $0\nend"),
 }
 
 return lua_snippets
