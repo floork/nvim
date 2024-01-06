@@ -46,6 +46,6 @@ local keymap = vim.keymap
 keymap.set(
   "n",
   "<leader>t",
-  "<cmd>lua toggle_floating_terminal()<CR>",
+  "<cmd>lua Toggle_floating_terminal()<CR>",
   { noremap = true, silent = true, desc = "Toggle floating terminal" }
 )
