@@ -1,21 +1,5 @@
 return {
   {
-    "f-person/git-blame.nvim",
-    config = function()
-      local gb = require("gitblame")
-
-      -- setup
-      gb.setup({
-        enabled = false,
-        relative_time = true,
-      })
-
-      -- keymap
-      local keymap = vim.keymap
-      keymap.set("n", "<leader>gb", "<cmd>GitBlameToggle<cr>", { desc = "Toggle git blame" })
-    end,
-  },
-  {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = true,
@@ -50,10 +34,15 @@ return {
       keymap.set("n", "<leader>gp", function()
         vim.cmd.Git("push")
       end)
+      keymap.set("n", "<leader>gF", function()
+        vim.cmd.Git("push --force-with-lease")
+      end)
       keymap.set("n", "<leader>gP", function()
         vim.cmd.Git({ "pull", "--rebase" })
       end)
       keymap.set("n", "<leader>go", ":Git push -u origin ", opts)
+      keymap.set("n", "<leader>gb", ":Git blame<CR>", opts)
+      keymap.set("n", "<leader>gl", ":Git log<CR>", opts)
     end,
   },
 }
