@@ -36,6 +36,9 @@ return {
         opts.desc = "Show LSP definitions"
         keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
 
+        opts.desc = "go back to previous location"
+        keymap.set("n", "gb", "<cmd> pop<CR>")
+
         opts.desc = "Show LSP implementations"
         keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 

@@ -12,7 +12,7 @@ return {
     end,
   },
   {
-    "wellle/context.vim", -- keep functions etc at the top of the file
+    "nvim-treesitter/nvim-treesitter-context",
   },
   {
     "github/copilot.vim",
