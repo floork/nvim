@@ -11,7 +11,7 @@ function Toggle_floating_terminal()
     floating_terminal_win = nil
   else
     -- If the buffer is closed, open it with Zsh
-    local cmd = "bash ."
+    local cmd = "bash"
     floating_terminal_buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_set_option(floating_terminal_buf, "buftype", "nofile")
 
