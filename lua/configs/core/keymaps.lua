@@ -25,12 +25,6 @@ keymap.set(
 -- Join lines without moving cursor
 keymap.set("n", "J", "mzJ`z", { desc = "Join lines without moving cursor", noremap = true, silent = true })
 
--- Highlight word under cursor
-keymap.set("n", "vv", "*", { desc = "Highlight word under cursor", noremap = true, silent = true })
-
--- Clear search highlights
-keymap.set("n", "<leader>nh", "<cmd>nohl<CR>", { desc = "Clear search highlights", noremap = true, silent = true })
-
 -- netrw
 local netrwIsOpen = false
 
