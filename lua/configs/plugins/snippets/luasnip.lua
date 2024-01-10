@@ -11,10 +11,10 @@ return {
     -- keymaps
     local keymap = vim.keymap
     local opts = { noremap = true, silent = true }
-    keymap.set({ "i", "s" }, "<leader>;", function()
+    keymap.set({ "i", "s" }, "<C-N>", function()
       ls.jump(1)
     end, opts)
-    keymap.set({ "i", "s" }, "<leader>,", function()
+    keymap.set({ "i", "s" }, "<C-P>", function()
       ls.jump(-1)
     end, opts)
   end,
