@@ -49,6 +49,6 @@ return {
     keymap.set("n", "<leader>fl", "<cmd>Telescope find_files hidden=true<cr>", { desc = "Fuzzy find files in cwd" })
     keymap.set("n", "<leader>ff", builtins.git_files, { desc = "Fuzzy find git files" })
     keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep hidden=true<cr>", { desc = "Find string in cwd" })
-    keymap.set("n", "<leader>df", "<cmd>Telescope dap list_breakpoints<cr>", { desc = "Show dap breakpoints" })
+    keymap.set("n", "<leader>bf", "<cmd>Telescope dap list_breakpoints<cr>", { desc = "Show dap breakpoints" })
   end,
 }

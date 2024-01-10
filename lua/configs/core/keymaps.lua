@@ -5,7 +5,6 @@ vim.g.mapleader = " "
 local keymap = vim.keymap
 
 -- Text operations
-keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without yanking", noremap = true, silent = true })
 keymap.set("n", "x", '"_x', { desc = "Delete without yanking", noremap = true, silent = true })
 
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down", noremap = true, silent = true })
