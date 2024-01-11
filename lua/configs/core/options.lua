@@ -40,3 +40,6 @@ opt.colorcolumn = "80"
 opt.scrolloff = 8
 
 opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+
+opt.spelllang = "en_us"
+opt.spell = true

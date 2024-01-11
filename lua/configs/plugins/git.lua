@@ -29,6 +29,7 @@ return {
     "tpope/vim-fugitive",
     config = function()
       local keymap = vim.keymap
+      local opts = { noremap = true, silent = true }
 
       keymap.set("n", "<leader>gs", "<cmd>Git<CR>")
       keymap.set("n", "<leader>gp", function()
