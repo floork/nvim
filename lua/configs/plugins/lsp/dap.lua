@@ -64,13 +64,13 @@ return {
 
   -- stylua: ignore
   keys = {
-    { "<F4>", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-    { "<F5>", function() require("dap").continue() end, desc = "Continue" },
-    { "<F7>", function() require("dap").step_into() end, desc = "Step Into" },
-    { "<F8>", function() require("dap").step_out() end, desc = "Step Out" },
-    { "<F9>", function() require("dap").step_over() end, desc = "Step Over" },
-    { "<F10>", function() require("dap").pause() end, desc = "Pause" },
-    { "<F11>", function() require("dap").terminate() end, desc = "Terminate" },
-    { "<F12>", function() require("dap").run_last() end, desc = "Restart" },
+    { "<leader>bp", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+    { "<leader>bc", function() require("dap").continue() end, desc = "Continue" },
+    { "<leader>bi", function() require("dap").step_into() end, desc = "Step Into" },
+    { "<leader>bo", function() require("dap").step_over() end, desc = "Step Over" },
+    { "<leader>bO", function() require("dap").step_out() end, desc = "Step Out" },
+    { "<leader>bp", function() require("dap").pause() end, desc = "Pause" },
+    { "<leader>bt", function() require("dap").terminate() end, desc = "Terminate" },
+    { "<leader>br", function() require("dap").run_last() end, desc = "Restart" },
   },
 }

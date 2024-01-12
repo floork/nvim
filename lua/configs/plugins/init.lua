@@ -21,9 +21,6 @@ return {
     end,
   },
   {
-    "mg979/vim-visual-multi",
-  },
-  {
     "nvim-tree/nvim-web-devicons",
   },
 }
