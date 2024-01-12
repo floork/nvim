@@ -6,11 +6,6 @@ return {
     -- fancy UI for the debugger
     {
       "rcarriga/nvim-dap-ui",
-      -- stylua: ignore
-      keys = {
-        { "<leader>bu", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-        { "<leader>be", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
-      },
       opts = {},
       config = function(_, opts)
         -- setup dap config by VsCode launch.json file
@@ -27,6 +22,18 @@ return {
         dap.listeners.before.event_exited["dapui_config"] = function()
           dapui.close({})
         end
+        local keymap = vim.keymap
+        local opts = { noremap = true, silent = true }
+        keymap.set("n", "<leader>bu", "<cmd>lua require('dapui').toggle()<CR>", opts)
+        keymap.set("n", "<leader>be", "<cmd>lua require('dapui').eval()<CR>", opts)
+        keymap.set("n", "<leader>bp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", opts)
+        keymap.set("n", "<leader>bc", "<cmd>lua require('dap').continue()<CR>", opts)
+        keymap.set("n", "<leader>bi", "<cmd>lua require('dap').step_into()<CR>", opts)
+        keymap.set("n", "<leader>bo", "<cmd>lua require('dap').step_over()<CR>", opts)
+        keymap.set("n", "<leader>bO", "<cmd>lua require('dap').step_out()<CR>", opts)
+        keymap.set("n", "<leader>bP", "<cmd>lua require('dap').pause()<CR>", opts)
+        keymap.set("n", "<leader>bt", "<cmd>lua require('dap').terminate()<CR>", opts)
+        keymap.set("n", "<leader>br", "<cmd>lua require('dap').run_last()<CR>", opts)
       end,
     },
 
@@ -60,17 +67,5 @@ return {
         },
       },
     },
-  },
-
-  -- stylua: ignore
-  keys = {
-    { "<leader>bp", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-    { "<leader>bc", function() require("dap").continue() end, desc = "Continue" },
-    { "<leader>bi", function() require("dap").step_into() end, desc = "Step Into" },
-    { "<leader>bo", function() require("dap").step_over() end, desc = "Step Over" },
-    { "<leader>bO", function() require("dap").step_out() end, desc = "Step Out" },
-    { "<leader>bp", function() require("dap").pause() end, desc = "Pause" },
-    { "<leader>bt", function() require("dap").terminate() end, desc = "Terminate" },
-    { "<leader>br", function() require("dap").run_last() end, desc = "Restart" },
   },
 }
