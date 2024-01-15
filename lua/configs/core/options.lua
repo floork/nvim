@@ -21,6 +21,10 @@ opt.smartcase = true
 opt.hlsearch = false
 opt.incsearch = true
 
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldlevel = 9999
+
 opt.termguicolors = true
 opt.signcolumn = "yes"
 

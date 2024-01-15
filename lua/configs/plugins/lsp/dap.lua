@@ -22,18 +22,25 @@ return {
         dap.listeners.before.event_exited["dapui_config"] = function()
           dapui.close({})
         end
+
+        dap.defaults.cpp.external_terminal = {
+          command = "wezterm",
+          args = { "-e" },
+        }
+
+        -- keymaps
         local keymap = vim.keymap
-        local opts = { noremap = true, silent = true }
+        local options = { noremap = true, silent = true }
         keymap.set("n", "<leader>bu", "<cmd>lua require('dapui').toggle()<CR>", opts)
-        keymap.set("n", "<leader>be", "<cmd>lua require('dapui').eval()<CR>", opts)
-        keymap.set("n", "<leader>bp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", opts)
-        keymap.set("n", "<leader>bc", "<cmd>lua require('dap').continue()<CR>", opts)
-        keymap.set("n", "<leader>bi", "<cmd>lua require('dap').step_into()<CR>", opts)
-        keymap.set("n", "<leader>bo", "<cmd>lua require('dap').step_over()<CR>", opts)
-        keymap.set("n", "<leader>bO", "<cmd>lua require('dap').step_out()<CR>", opts)
-        keymap.set("n", "<leader>bP", "<cmd>lua require('dap').pause()<CR>", opts)
-        keymap.set("n", "<leader>bt", "<cmd>lua require('dap').terminate()<CR>", opts)
-        keymap.set("n", "<leader>br", "<cmd>lua require('dap').run_last()<CR>", opts)
+        keymap.set("n", "<leader>be", "<cmd>lua require('dapui').eval()<CR>", options)
+        keymap.set("n", "<leader>bp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", options)
+        keymap.set("n", "<leader>bc", "<cmd>lua require('dap').continue()<CR>", options)
+        keymap.set("n", "<leader>bi", "<cmd>lua require('dap').step_into()<CR>", options)
+        keymap.set("n", "<leader>bo", "<cmd>lua require('dap').step_over()<CR>", options)
+        keymap.set("n", "<leader>bO", "<cmd>lua require('dap').step_out()<CR>", options)
+        keymap.set("n", "<leader>bP", "<cmd>lua require('dap').pause()<CR>", options)
+        keymap.set("n", "<leader>bt", "<cmd>lua require('dap').terminate()<CR>", options)
+        keymap.set("n", "<leader>br", "<cmd>lua require('dap').run_last()<CR>", options)
       end,
     },
 
