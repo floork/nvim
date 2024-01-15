@@ -14,7 +14,7 @@ return {
         javascript = { "prettier" }, -- JavaScript formatter (prettier)
         javascriptreact = { "prettier" }, -- JavaScript React formatter (prettier)
         json = { "prettier" }, -- JSON formatter (prettier)
-        lua = { "stylua" }, -- Lua formatter (stylua)
+        lua = { "stylua --indent-width 2 --indent-type Spaces" }, -- Lua formatter (stylua)
         markdown = { "prettier" }, -- Markdown formatter (prettier)
         python = { "isort", "black" }, -- Python formatters (isort, black)
         rust = { "rust_analyzer" }, -- Rust formatter (rustfmt)

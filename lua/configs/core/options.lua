@@ -12,7 +12,7 @@ opt.softtabstop = 2
 opt.expandtab = true
 opt.autoindent = true
 opt.list = true
-opt.lcs = "space:·"
+opt.listchars:append({ tab = "␉ ", trail = "·" })
 
 opt.wrap = false
 
