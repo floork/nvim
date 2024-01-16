@@ -24,22 +24,4 @@ keymap.set(
 -- Join lines without moving cursor
 keymap.set("n", "J", "mzJ`z", { desc = "Join lines without moving cursor", noremap = true, silent = true })
 
--- netrw
-local netrwIsOpen = false
-
--- Add your own mapping. For example:
-keymap.set("n", "<leader>ee", function()
-  if netrwIsOpen then
-    local i = vim.fn.bufnr("$")
-    while i >= 1 do
-      if vim.fn.getbufvar(i, "&filetype") == "netrw" then
-        vim.cmd("bwipeout " .. i)
-      end
-      i = i - 1
-    end
-    netrwIsOpen = false
-  else
-    netrwIsOpen = true
-    vim.cmd("silent Lexplore")
-  end
-end, { desc = "toggle Netrw", noremap = true, silent = true })
+keymap.set("n", "<leader>ee", vim.cmd.Ex, { desc = "Toggle file explorer", noremap = true, silent = true })
