@@ -13,25 +13,12 @@ return {
     local actions = require("telescope.actions")
 
     telescope.setup({
-      extensions = {
-        file_browser = {
-          theme = "ivy",
-          mappings = {
-            ["i"] = {
-              -- your custom insert mode mappings
-            },
-            ["n"] = {
-              -- your custom normal mode mappings
-            },
-          },
-        },
-      },
       defaults = {
         -- path_display = { "truncate " },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-            ["<C-j>"] = actions.move_selection_next, -- move to next result
+            ["<C-j>"] = actions.move_selection_next,     -- move to next result
             ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
           },
         },
@@ -46,7 +33,8 @@ return {
     local keymap = vim.keymap -- for conciseness
     local builtins = require("telescope.builtin")
 
-    keymap.set("n", "<leader>fl", "<cmd>Telescope find_files hidden=true<cr>", { desc = "Fuzzy find files in cwd" })
+    keymap.set("n", "<leader>fl", "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,-u<cr>",
+      { desc = "Fuzzy find files in cwd" })
     keymap.set("n", "<leader>ff", builtins.git_files, { desc = "Fuzzy find git files" })
     keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep hidden=true<cr>", { desc = "Find string in cwd" })
     keymap.set("n", "<leader>bf", "<cmd>Telescope dap list_breakpoints<cr>", { desc = "Show dap breakpoints" })
