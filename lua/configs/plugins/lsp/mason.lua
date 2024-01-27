@@ -49,6 +49,7 @@ return {
         "tsserver",
         "volar",
         "yamlls",
+        "zls",
       },
       -- auto-install configured servers (with lspconfig)
       automatic_installation = true, -- not the same as ensure_installed
@@ -56,18 +57,18 @@ return {
 
     mason_tool_installer.setup({
       ensure_installed = {
-        "black", -- Python code formatter
+        "black",        -- Python code formatter
         "clang-format", -- C++ code formatter
-        "codespell", -- Spell checker for code
-        "cpptools", -- C++ code formatter
-        "debugpy", -- Python debugger
-        "eslint", -- JavaScript code linter
-        "yamllint", -- YAML code linter
+        "codespell",    -- Spell checker for code
+        "cpptools",     -- C++ code formatter
+        "debugpy",      -- Python debugger
+        "eslint",       -- JavaScript code linter
+        "yamllint",     -- YAML code linter
         "markdownlint", -- Markdown linter
-        "isort", -- Python code formatter
-        "pylint", -- Python code linter
-        "rnix", -- Nix code formatter
-        "stylua", -- Lua code formatter
+        "isort",        -- Python code formatter
+        "pylint",       -- Python code linter
+        "rnix",         -- Nix code formatter
+        "stylua",       -- Lua code formatter
       },
     })
   end,
