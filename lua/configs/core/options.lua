@@ -1,7 +1,7 @@
 local opt = vim.opt
 
--- opt.guicursor = ""
-opt.cursorline = true
+opt.guicursor = ""
+-- opt.cursorline = true
 
 opt.relativenumber = true
 opt.number = true
