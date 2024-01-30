@@ -40,7 +40,4 @@ luac.out
 *.x86_64
 *.hex
 
-# lazy-lock files
-lazy-lock.json
-
 plugin/packer_compiled.lua

@@ -6,7 +6,6 @@ return {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-tree/nvim-web-devicons",
     "nvim-telescope/telescope-dap.nvim",
-    "folke/noice.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -27,7 +26,6 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("dap")
-    telescope.load_extension("noice")
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
