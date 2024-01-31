@@ -15,7 +15,9 @@ return {
     "rose-pine/neovim",
     config = function()
       require("rose-pine").setup({
-        disable_background = true,
+        styles = {
+          transparency = true,
+        },
       })
       set_colorscheme("rose-pine-main")
       ColorMyPencil()
