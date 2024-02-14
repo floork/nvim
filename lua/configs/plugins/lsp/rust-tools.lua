@@ -11,10 +11,15 @@ return {
     rt.setup({
       server = {
         on_attach = function(_, bufnr)
+          local keymap = vim.keymap
+          local opts = { noremap = true, silent = true }
           -- Hover actions
-          vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+          opts.buffer = bufnr
+          opts.desc = "Show hover actions"
+          keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, opts)
           -- Code action groups
-          vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+          opts.desc = "Show code action groups"
+          keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, opts)
         end,
       },
       opts = {

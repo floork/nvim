@@ -4,6 +4,11 @@ return {
     local apm = require("vim-apm")
 
     apm:setup({})
-    vim.keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end)
+
+    local keymap = vim.keymap
+    local opts = { noremap = true, silent = true }
+
+    opts.desc = "Toggle APM"
+    keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end, opts)
   end
 }

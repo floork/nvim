@@ -11,9 +11,13 @@ return {
     -- keymaps
     local keymap = vim.keymap
     local opts = { noremap = true, silent = true }
+
+    opts.desc = "jump forward"
     keymap.set({ "i", "s" }, "<C-N>", function()
       ls.jump(1)
     end, opts)
+
+    opts.desc = "jump backward"
     keymap.set({ "i", "s" }, "<C-P>", function()
       ls.jump(-1)
     end, opts)

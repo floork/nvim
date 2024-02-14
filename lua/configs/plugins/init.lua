@@ -15,12 +15,6 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
   },
   {
-    "github/copilot.vim",
-    config = function()
-      vim.g.copilot_filetypes = { yaml = true }
-    end,
-  },
-  {
     "nvim-tree/nvim-web-devicons",
   },
 }

@@ -24,4 +24,8 @@ keymap.set(
 -- Join lines without moving cursor
 keymap.set("n", "J", "mzJ`z", { desc = "Join lines without moving cursor", noremap = true, silent = true })
 
+-- Split lines without moving cursor
+keymap.set("n", "<YourMapping>", ":s/\\v(.)(\\n)(.)/\\1\\r\\3/g<CR>`",
+  { desc = "Split lines without moving cursor", noremap = true, silent = true })
+
 keymap.set("n", "<leader>ee", vim.cmd.Ex, { desc = "Toggle file explorer", noremap = true, silent = true })

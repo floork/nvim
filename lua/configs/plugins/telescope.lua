@@ -29,12 +29,17 @@ return {
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
+    local opts = { noremap = true, silent = true, }
     local builtins = require("telescope.builtin")
 
+    opts.desc = "Fuzzy find files"
     keymap.set("n", "<leader>fl", "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,-u<cr>",
-      { desc = "Fuzzy find files in cwd" })
-    keymap.set("n", "<leader>ff", builtins.git_files, { desc = "Fuzzy find git files" })
-    keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep hidden=true<cr>", { desc = "Find string in cwd" })
-    keymap.set("n", "<leader>bf", "<cmd>Telescope dap list_breakpoints<cr>", { desc = "Show dap breakpoints" })
+      opts)
+    opts.desc = "Fuzzy find git files"
+    keymap.set("n", "<leader>ff", builtins.git_files, opts)
+    opts.desc = "Fuzzy find string"
+    keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep hidden=true<cr>", opts)
+    opts.desc = "find dap breakpoints"
+    keymap.set("n", "<leader>bf", "<cmd>Telescope dap list_breakpoints<cr>", opts)
   end,
 }

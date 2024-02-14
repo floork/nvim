@@ -30,16 +30,29 @@ return {
 
         -- keymaps
         local keymap = vim.keymap
-        local options = { noremap = true, silent = true }
-        keymap.set("n", "<leader>bu", "<cmd>lua require('dapui').toggle()<CR>", opts)
+        local options = {
+          noremap = true,
+          silent = true,
+        }
+        options.desc = "Toggle DAP UI"
+        keymap.set("n", "<leader>bu", "<cmd>lua require('dapui').toggle()<CR>", options)
+        options.desc = "Evaluate DAP expressions"
         keymap.set("n", "<leader>be", "<cmd>lua require('dapui').eval()<CR>", options)
+        options.desc = "Toggle breakpoint"
         keymap.set("n", "<leader>bp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", options)
+        options.desc = "Continue execution"
         keymap.set("n", "<leader>bc", "<cmd>lua require('dap').continue()<CR>", options)
+        options.desc = "Step into"
         keymap.set("n", "<leader>bi", "<cmd>lua require('dap').step_into()<CR>", options)
+        options.desc = "Step over"
         keymap.set("n", "<leader>bo", "<cmd>lua require('dap').step_over()<CR>", options)
+        options.desc = "Step out"
         keymap.set("n", "<leader>bO", "<cmd>lua require('dap').step_out()<CR>", options)
+        options.desc = "Pause execution"
         keymap.set("n", "<leader>bP", "<cmd>lua require('dap').pause()<CR>", options)
+        options.desc = "Terminate DAP session"
         keymap.set("n", "<leader>bt", "<cmd>lua require('dap').terminate()<CR>", options)
+        options.desc = "Re-run last DAP configuration"
         keymap.set("n", "<leader>br", "<cmd>lua require('dap').run_last()<CR>", options)
       end,
     },

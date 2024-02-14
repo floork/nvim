@@ -8,9 +8,15 @@ return {
     harpoon:setup({})
 
     local keymap = vim.keymap
-    keymap.set("n", "<leader>hm", function() harpoon:list():append() end)
-    keymap.set("n", "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-    keymap.set("n", "<leader>hp", function() harpoon:list():prev() end)
-    keymap.set("n", "<leader>hn", function() harpoon:list():next() end)
+    local opts = { noremap = true, silent = true }
+
+    opts.desc = "Add current file to harpoon"
+    keymap.set("n", "<leader>hm", function() harpoon:list():append() end, opts)
+    opts.desc = "Toggle harpoon menu"
+    keymap.set("n", "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts)
+    opts.desc = "Go to harpoon previous entry"
+    keymap.set("n", "<leader>hp", function() harpoon:list():prev() end, opts)
+    opts.desc = "Go to harpoon next entry"
+    keymap.set("n", "<leader>hn", function() harpoon:list():next() end, opts)
   end,
 }
