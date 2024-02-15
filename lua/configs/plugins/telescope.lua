@@ -14,7 +14,7 @@ return {
     telescope.setup({
       defaults = {
         -- path_display = { "truncate " },
-        file_ignore_patterns = { ".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
+        file_ignore_patterns = { ".git/", "build/", "dist", "node_modules", ".cache", "%.o", "%.a", "%.out", "%.class",
           "%.pdf", "%.mkv", "%.mp4", "%.zip" },
         mappings = {
           i = {
