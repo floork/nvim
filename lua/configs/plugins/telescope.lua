@@ -14,6 +14,8 @@ return {
     telescope.setup({
       defaults = {
         -- path_display = { "truncate " },
+        file_ignore_patterns = { ".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
+          "%.pdf", "%.mkv", "%.mp4", "%.zip" },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
@@ -33,7 +35,8 @@ return {
     local builtins = require("telescope.builtin")
 
     opts.desc = "Fuzzy find files"
-    keymap.set("n", "<leader>fl", "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,-u<cr>",
+    keymap.set("n", "<leader>fl",
+      "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,-u<cr>",
       opts)
     opts.desc = "Fuzzy find git files"
     keymap.set("n", "<leader>ff", builtins.git_files, opts)
