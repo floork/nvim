@@ -36,7 +36,7 @@ return {
 
     opts.desc = "Fuzzy find files"
     keymap.set("n", "<leader>fl",
-      "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,-u<cr>",
+      "<cmd>Telescope find_files find_command=fd,--hidden,--type,file<cr>",
       opts)
     opts.desc = "Fuzzy find git files"
     keymap.set("n", "<leader>ff", builtins.git_files, opts)
