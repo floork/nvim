@@ -168,7 +168,7 @@ return {
       })
 
       -- configure vue server
-      lspconfig["vuels"].setup({
+      lspconfig["volar"].setup({
         capabilities = capabilities,
         on_attach = on_attach,
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
