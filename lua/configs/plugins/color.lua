@@ -42,9 +42,18 @@ return {
         },
       })
 
-      set_colorscheme("tokyonight")
       ColorMyPencil("tokyonight")
     end
   },
-  { "loctvl842/monokai-pro.nvim" },
+  {
+    "ellisonleao/gruvbox.nvim",
+    config = function()
+      require("gruvbox").setup({
+        transparent_mode = true,
+      })
+      set_colorscheme("gruvbox")
+      ColorMyPencil("gruvbox")
+    end,
+    opts = ...
+  }
 }
