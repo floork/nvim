@@ -19,7 +19,7 @@ return {
           transparency = true,
         },
       })
-      ColorMyPencil()
+      -- ColorMyPencil()
     end,
   },
   {
@@ -42,7 +42,7 @@ return {
         },
       })
 
-      ColorMyPencil("tokyonight")
+      -- ColorMyPencil("tokyonight")
     end
   },
   {
@@ -51,6 +51,7 @@ return {
       require("gruvbox").setup({
         transparent_mode = true,
       })
+
       set_colorscheme("gruvbox")
       ColorMyPencil("gruvbox")
     end,
