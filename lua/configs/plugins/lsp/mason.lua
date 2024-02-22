@@ -34,6 +34,7 @@ return {
         "dockerls",
         "docker_compose_language_service",
         "emmet_ls",
+        "gopls",
         "graphql",
         "html",
         "jsonls",
