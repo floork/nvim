@@ -60,7 +60,6 @@ return {
         "black",        -- Python code formatter
         "clang-format", -- C++ code formatter
         "codespell",    -- Spell checker for code
-        "cpptools",     -- C++ code formatter
         "debugpy",      -- Python debugger
         "eslint",       -- JavaScript code linter
         "yamllint",     -- YAML code linter
