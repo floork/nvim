@@ -5,7 +5,11 @@ return {
   config = function()
     local harpoon = require("harpoon")
 
-    harpoon:setup({})
+    harpoon:setup({
+      settings = {
+        save_on_toggle = true,
+      }
+    })
 
     harpoon:extend({
       UI_CREATE = function(cx)
