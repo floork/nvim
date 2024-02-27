@@ -15,6 +15,10 @@ return {
     keymap.set("n", "<leader>xx", function()
       require("trouble").toggle()
     end, opts)
+    opts.desc = "Toggle quickfix"
+    keymap.set("n", "<leader>[f", function()
+      require("trouble").toggle("quickfix")
+    end, opts)
     opts.desc = "previous trouble"
     keymap.set("n", "[d", function()
       require("trouble").previous({ skip_groups = true, jump = true })
