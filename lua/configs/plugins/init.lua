@@ -1,5 +1,8 @@
 return {
   {
+    "tpope/vim-sleuth",
+  },
+  {
     "nvim-lua/plenary.nvim",
     "christoomey/vim-tmux-navigator",
     config = function()

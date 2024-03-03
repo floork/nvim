@@ -7,6 +7,8 @@ opt.guicursor = ""
 opt.relativenumber = true
 opt.number = true
 
+opt.mouse = "a"
+
 -- Indentation
 opt.tabstop = 2
 opt.shiftwidth = 2
@@ -16,8 +18,13 @@ opt.smartindent = true
 
 -- Display
 opt.list = true
-opt.listchars:append({ tab = "␉ ", trail = "·" })
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.wrap = false
+opt.signcolumn = "yes"
+opt.updatetime = 250
+opt.timeoutlen = 300
+opt.inccommand = "split"
+opt.cursorline = true
 
 -- Search
 opt.smartcase = true

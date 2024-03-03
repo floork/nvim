@@ -1,8 +1,15 @@
 return {
   {
     "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = true,
+    opts = {
+      signs = {
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+      },
+    },
   },
   {
     "ThePrimeagen/git-worktree.nvim",
@@ -20,12 +27,7 @@ return {
       opts.desc = "Open git worktree"
       keymap.set("n", "<leader>gw", "<cmd>Telescope git_worktree git_worktrees<cr>", opts)
       opts.desc = "Create git worktree"
-      keymap.set(
-        "n",
-        "<leader>gm",
-        "<cmd>Telescope git_worktree create_git_worktree<cr>",
-        opts
-      )
+      keymap.set("n", "<leader>gm", "<cmd>Telescope git_worktree create_git_worktree<cr>", opts)
     end,
   },
   {
@@ -38,19 +40,16 @@ return {
       keymap.set("n", "<leader>gs", "<cmd>Git<CR>", opts)
       opts.desc = "Git push"
       keymap.set("n", "<leader>gp", function()
-          vim.cmd.Git("push")
-        end,
-        opts)
+        vim.cmd.Git("push")
+      end, opts)
       opts.desc = "Git push --force-with-lease"
       keymap.set("n", "<leader>gF", function()
-          vim.cmd.Git("push --force-with-lease")
-        end,
-        opts)
+        vim.cmd.Git("push --force-with-lease")
+      end, opts)
       opts.desc = "Git pull --rebase"
       keymap.set("n", "<leader>gP", function()
-          vim.cmd.Git({ "pull", "--rebase" })
-        end,
-        opts)
+        vim.cmd.Git({ "pull", "--rebase" })
+      end, opts)
       opts.desc = "Git push origin"
       keymap.set("n", "<leader>go", ":Git push -u origin ", opts)
       opts.desc = "Git blame"

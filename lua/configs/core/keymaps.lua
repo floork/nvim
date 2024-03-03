@@ -1,5 +1,6 @@
 -- Set leader key to space
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Define a local variable for keymap utility
 local keymap = vim.keymap
@@ -25,8 +26,12 @@ keymap.set(
 keymap.set("n", "J", "mzJ`z", { desc = "Join lines without moving cursor", noremap = true, silent = true })
 
 -- Split lines without moving cursor
-keymap.set('n', 'K', [[:s/\v(%#\_.{-})/\1\r]],
-  { desc = "Split lines without moving cursor", noremap = true, silent = true })
+keymap.set(
+  "n",
+  "K",
+  [[:s/\v(%#\_.{-})/\1\r]],
+  { desc = "Split lines without moving cursor", noremap = true, silent = true }
+)
 
 -- Toggle file explorer
 keymap.set("n", "<leader>ee", vim.cmd.Ex, { desc = "Toggle file explorer", noremap = true, silent = true })
