@@ -12,7 +12,7 @@ return {
     },
     { "nvim-telescope/telescope-ui-select.nvim" },
     "nvim-tree/nvim-web-devicons",
-    -- "nvim-telescope/telescope-dap.nvim",
+    "nvim-telescope/telescope-dap.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -39,7 +39,7 @@ return {
     })
 
     telescope.load_extension("fzf")
-    -- telescope.load_extension("dap")
+    telescope.load_extension("dap")
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness

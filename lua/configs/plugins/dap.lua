@@ -35,25 +35,25 @@ return {
           silent = true,
         }
         options.desc = "Toggle DAP UI"
-        keymap.set("n", "<leader>bu", "<cmd>lua require('dapui').toggle()<CR>", options)
+        keymap.set("n", "<leader>du", "<cmd>lua require('dapui').toggle()<CR>", options)
         options.desc = "Evaluate DAP expressions"
-        keymap.set("n", "<leader>be", "<cmd>lua require('dapui').eval()<CR>", options)
+        keymap.set("n", "<leader>de", "<cmd>lua require('dapui').eval()<CR>", options)
         options.desc = "Toggle breakpoint"
-        keymap.set("n", "<leader>bp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", options)
+        keymap.set("n", "<leader>dp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", options)
         options.desc = "Continue execution"
-        keymap.set("n", "<leader>bc", "<cmd>lua require('dap').continue()<CR>", options)
+        keymap.set("n", "<leader>dc", "<cmd>lua require('dap').continue()<CR>", options)
         options.desc = "Step into"
-        keymap.set("n", "<leader>bi", "<cmd>lua require('dap').step_into()<CR>", options)
+        keymap.set("n", "<leader>di", "<cmd>lua require('dap').step_into()<CR>", options)
         options.desc = "Step over"
-        keymap.set("n", "<leader>bo", "<cmd>lua require('dap').step_over()<CR>", options)
+        keymap.set("n", "<leader>do", "<cmd>lua require('dap').step_over()<CR>", options)
         options.desc = "Step out"
-        keymap.set("n", "<leader>bO", "<cmd>lua require('dap').step_out()<CR>", options)
+        keymap.set("n", "<leader>dO", "<cmd>lua require('dap').step_out()<CR>", options)
         options.desc = "Pause execution"
-        keymap.set("n", "<leader>bP", "<cmd>lua require('dap').pause()<CR>", options)
+        keymap.set("n", "<leader>dP", "<cmd>lua require('dap').pause()<CR>", options)
         options.desc = "Terminate DAP session"
-        keymap.set("n", "<leader>bt", "<cmd>lua require('dap').terminate()<CR>", options)
+        keymap.set("n", "<leader>dt", "<cmd>lua require('dap').terminate()<CR>", options)
         options.desc = "Re-run last DAP configuration"
-        keymap.set("n", "<leader>br", "<cmd>lua require('dap').run_last()<CR>", options)
+        keymap.set("n", "<leader>dr", "<cmd>lua require('dap').run_last()<CR>", options)
       end,
     },
 
