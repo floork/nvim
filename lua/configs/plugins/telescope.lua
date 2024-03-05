@@ -10,7 +10,6 @@ return {
         return vim.fn.executable("make") == 1
       end,
     },
-    { "nvim-telescope/telescope-ui-select.nvim" },
     "nvim-tree/nvim-web-devicons",
     "nvim-telescope/telescope-dap.nvim",
   },
@@ -19,11 +18,6 @@ return {
     local actions = require("telescope.actions")
 
     telescope.setup({
-      extensions = {
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown(),
-        },
-      },
       defaults = {
         -- path_display = { "truncate " },
         file_ignore_patterns = { ".git/", "build/", "dist", "node_modules", ".cache", "%.o", "%.a", "%.out", "%.class",
@@ -52,12 +46,11 @@ return {
     keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep hidden=true<cr>", opts)
 
     opts.desc = "[/] Fuzzily search in current buffer"
-    keymap.set("n", "<leader>/", function()
-      builtins.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-        winblend = 10,
+    vim.keymap.set('n', '<leader>/', function()
+      builtins.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
         previewer = false,
-      }))
-    end, opts)
+      })
+    end)
 
     opts.desc = "[S]earch [N]eovim files"
     keymap.set("n", "<leader>fc", function()
