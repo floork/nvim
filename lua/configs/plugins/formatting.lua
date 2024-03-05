@@ -7,6 +7,7 @@ return {
     conform.setup({
       formatters_by_ft = {
         bash = { "shfmt" },                                       -- Bash formatter (shfmt)
+        sh = { "shfmt" },                                         -- Shell formatter (shfmt)
         c = { "my_cpp" },                                         -- C formatter (clang-format)
         cpp = { "my_cpp" },                                       -- C++ formatter (clang-format)
         css = { "prettier" },                                     -- CSS formatter (prettier)
