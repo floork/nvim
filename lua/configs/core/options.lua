@@ -16,9 +16,8 @@ opt.softtabstop = 2
 opt.expandtab = true
 opt.smartindent = true
 
--- Display
 opt.list = true
-opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+opt.listchars = { tab = "» ", space = "·", trail = "·", nbsp = "␣" }
 opt.wrap = false
 opt.signcolumn = "yes"
 opt.updatetime = 250
