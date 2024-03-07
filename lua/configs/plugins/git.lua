@@ -48,7 +48,7 @@ return {
       end, opts)
       opts.desc = "Git pull --rebase"
       keymap.set("n", "<leader>gP", function()
-        vim.cmd.Git({ "pull", "--rebase" })
+        vim.cmd.Git("pull --rebase")
       end, opts)
       opts.desc = "Git push origin"
       keymap.set("n", "<leader>go", ":Git push -u origin ", opts)
