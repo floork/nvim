@@ -19,7 +19,7 @@ opt.smartindent = true
 opt.list = true
 opt.listchars = { tab = "» ", space = "·", trail = "·", nbsp = "␣" }
 opt.wrap = false
-opt.timeoutlen = 300
+opt.timeoutlen = 1000
 opt.inccommand = "split"
 opt.cursorline = true
 
