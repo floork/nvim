@@ -43,8 +43,12 @@ return {
         vim.cmd.Git("push")
       end, opts)
       opts.desc = "Git push --force-with-lease"
-      keymap.set("n", "<leader>gF", function()
+      keymap.set("n", "<leader>gfp", function()
         vim.cmd.Git("push --force-with-lease")
+      end, opts)
+      opts.desc = "Git push --force"
+      keymap.set("n", "<leader>gFp", function()
+        vim.cmd.Git("push --force")
       end, opts)
       opts.desc = "Git pull --rebase"
       keymap.set("n", "<leader>gP", function()
