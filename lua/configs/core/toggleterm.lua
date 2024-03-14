@@ -12,30 +12,37 @@ function Toggle_floating_terminal()
   else
     -- If the buffer is closed, open it with Zsh
     local cmd = "zsh"
-    floating_terminal_buf = vim.api.nvim_create_buf(false, true)
-    vim.api.nvim_buf_set_option(floating_terminal_buf, "buftype", "nofile")
 
     -- Calculate width and height as positive integers
     local width = math.floor(vim.fn.winwidth(0) * 0.8)
     local height = math.floor(vim.fn.winheight(0) * 0.8)
 
-    -- Open the window with the new buffer
+    -- Create the buffer if not already existing
+    if not floating_terminal_buf or not vim.api.nvim_buf_is_valid(floating_terminal_buf) then
+      floating_terminal_buf = vim.api.nvim_create_buf(true, false) -- Set "listed" to true
+    end
+
+    -- Open the window with the existing buffer
     floating_terminal_win = vim.api.nvim_open_win(floating_terminal_buf, true, {
       style = "minimal",
       relative = "editor",
-      width = width > 0 and width or 1,
-      height = height > 0 and height or 1,
-      row = vim.fn.ceil((1 - 0.8) * vim.fn.winheight(0) / 2),
-      col = vim.fn.ceil((1 - 0.8) * vim.fn.winwidth(0) / 2),
+      width = width,
+      height = height,
+      row = math.floor((vim.api.nvim_get_option("lines") - height) / 2),
+      col = math.floor((vim.api.nvim_get_option("columns") - width) / 2),
       focusable = true,
       border = "single",
     })
 
-    -- Redirect the Zsh shell to the new buffer
+    -- Redirect the Zsh shell to the existing buffer
     vim.fn.termopen(cmd, {
       cwd = vim.fn.getcwd(),
       on_exit = function()
         Toggle_floating_terminal()
+      end,
+      -- Ensure terminal starts in insert mode
+      on_start = function(jobid)
+        vim.api.nvim_feedkeys("i", "n", true)
       end,
     })
   end
