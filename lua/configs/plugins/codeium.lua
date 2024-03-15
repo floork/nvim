@@ -8,10 +8,7 @@ return {
     local keymap = vim.keymap
     local opts = { noremap = true, silent = true }
 
-    opts.desc = "Codeium Accept"
-    -- keymap.set('i', '<C-l>',
-    --   function() return vim.fn.feedkeys(vim.api.nvim_replace_termcodes(vim.fn["codeium#Accept"](), true, true, true), "") end,
-    --   opts)
+    opts.desc = "Codeium Chat"
     keymap.set('n', '<leader>cc',
       function() return vim.fn['codeium#Chat']() end,
       opts)
