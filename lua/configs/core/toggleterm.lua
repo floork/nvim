@@ -14,8 +14,15 @@ function Toggle_floating_terminal()
     local cmd = "zsh"
 
     -- Calculate width and height as positive integers
-    local width = math.floor(vim.fn.winwidth(0) * 0.8)
-    local height = math.floor(vim.fn.winheight(0) * 0.8)
+    local width = math.floor(vim.api.nvim_get_option('columns') * 0.8)
+    local height = math.floor(vim.api.nvim_get_option('lines') * 0.8)
+
+    if width < 1 then
+      width = 1
+    end
+    if height < 1 then
+      height = 1
+    end
 
     -- Create the buffer if not already existing
     if not floating_terminal_buf or not vim.api.nvim_buf_is_valid(floating_terminal_buf) then
