@@ -10,6 +10,18 @@ return {
         changedelete = { text = "~" },
       },
     },
+    config = function(_, opts)
+      local gs = require("gitsigns")
+
+      gs.setup(opts)
+
+      -- keymaps
+      local keymap = vim.keymap
+      local opt = { noremap = true, silent = true }
+
+      opt.desc = "Git blame"
+      keymap.set('n', '<leader>gb', function() gs.blame_line { full = true } end, opt)
+    end,
   },
   {
     "ThePrimeagen/git-worktree.nvim",
@@ -76,14 +88,39 @@ return {
       neogit.setup({
         integrations = {
           diffview = true,
+          telescope = true,
         },
         disable_prompt_on_change = true,
-        kind = "split",
-        commit_view = {
-          kind = "replace",
+        kind = "floating",
+        commit_editor = {
+          kind = "floating",
         },
         commit_select_view = {
-          kind = "split",
+          kind = "floating",
+        },
+        commit_view = {
+          kind = "floating",
+        },
+        log_view = {
+          kind = "floating",
+        },
+        rebase_editor = {
+          kind = "floating",
+        },
+        reflog_view = {
+          kind = "floating",
+        },
+        merge_editor = {
+          kind = "floating",
+        },
+        tag_editor = {
+          kind = "floating",
+        },
+        preview_buffer = {
+          kind = "floating",
+        },
+        popup = {
+          kind = "floating",
         },
       })
 
