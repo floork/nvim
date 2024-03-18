@@ -70,7 +70,7 @@ return {
         bashls = {},
         dockerls = {},
         -- rust_analyser = {},
-        rnix = {},
+        nil_ls = {},
         volar = {
           filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
         },
@@ -127,14 +127,14 @@ return {
         "gopls",
         "graphql",
         "html",
-        "htmx",
+        "htmx-lsp",
         "jsonls",
         "lua_ls",
         "marksman",
         "neocmake",
         "prismals",
         "pyright",
-        "rnix",
+        "nil_ls",
         "rust_analyzer",
         "svelte",
         "tailwindcss",
@@ -153,7 +153,7 @@ return {
         "markdownlint", -- Markdown linter
         "isort",        -- Python code formatter
         "pylint",       -- Python code linter
-        "rnix",         -- Nix code formatter
+        "nixpkgs-fmt",  -- Nix code formatter
         "stylua",       -- Lua code formatter
 
       })

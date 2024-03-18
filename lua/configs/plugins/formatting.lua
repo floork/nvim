@@ -19,6 +19,7 @@ return {
         json = { "prettier" },                                    -- JSON formatter (prettier)
         lua = { "stylua --indent-width 2 --indent-type Spaces" }, -- Lua formatter (stylua)
         markdown = { "prettier" },                                -- Markdown formatter (prettier)
+        nix = { "nixfmt" },                                       -- Nix formatter (nixfmt)
         python = { "isort", "black" },                            -- Python formatters (isort, black)
         rust = { "rust_analyzer" },                               -- Rust formatter (rustfmt)
         svelte = { "prettier" },                                  -- Svelte formatter (prettier)
