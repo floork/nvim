@@ -24,6 +24,7 @@ keymap.set(
 
 -- Join lines without moving cursor
 keymap.set("n", "J", "mzJ`z", { desc = "Join lines without moving cursor", noremap = true, silent = true })
+keymap.set("n", "N", "i<Enter><Esc>", { desc = "Split lines at cursor", noremap = true })
 
 -- Split lines without moving cursor
 keymap.set(
