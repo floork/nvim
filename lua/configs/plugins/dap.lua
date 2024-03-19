@@ -1,239 +1,114 @@
+-- debug.lua
+--
+-- Shows how to use the DAP plugin to debug your code.
+--
+-- Primarily focused on configuring the debugger for Go, but can
+-- be extended to other languages as well. That's why it's called
+-- kickstart.nvim and not kitchen-sink.nvim ;)
+
 return {
-  "mfussenegger/nvim-dap",
-
+  'mfussenegger/nvim-dap',
   dependencies = {
+    -- Creates a beautiful debugger UI
+    'rcarriga/nvim-dap-ui',
 
-    -- fancy UI for the debugger
+    -- Required dependency for nvim-dap-ui
+    'nvim-neotest/nvim-nio',
+    'theHamsta/nvim-dap-virtual-text',
+
+    -- Installs the debug adapters for you
+    'williamboman/mason.nvim',
+    'jay-babu/mason-nvim-dap.nvim',
+
+    -- Add your own debuggers here
+    'leoluz/nvim-dap-go', -- go
     {
-      "rcarriga/nvim-dap-ui",
-      dependencies = { "mxsdev/nvim-dap-vscode-js" },
-      opts = {},
-      config = function(_, opts)
-        -- setup dap config by VsCode launch.json file
-        -- require("dap.ext.vscode").load_launchjs()
-        local dap = require("dap")
-        local dapui = require("dapui")
-        local _, dap_utils = pcall(require, "dap.utils")
-
-        -- VSCODE JS (Node/Chrome/Terminal/Jest)
-        require("dap-vscode-js").setup({
-          debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter",
-          debugger_cmd = { "js-debug-adapter" },
-          adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-        })
-
-        local exts = {
-          "javascript",
-          "typescript",
-          "javascriptreact",
-          "typescriptreact",
-          "vue",
-          "svelte",
-        }
-
-        for i, ext in ipairs(exts) do
-          dap.configurations[ext] = {
-            {
-              type = "pwa-chrome",
-              request = "launch",
-              name = "Launch Chrome with \"localhost\"",
-              url = function()
-                local co = coroutine.running()
-                return coroutine.create(function()
-                  vim.ui.input({ prompt = 'Enter URL: ', default = 'http://localhost:3000' }, function(url)
-                    if url == nil or url == '' then
-                      return
-                    else
-                      coroutine.resume(co, url)
-                    end
-                  end)
-                end)
-              end,
-              webRoot = vim.fn.getcwd(),
-              protocol = 'inspector',
-              sourceMaps = true,
-              userDataDir = false,
-              resolveSourceMapLocations = {
-                "${workspaceFolder}/**",
-                "!**/node_modules/**",
-              }
-            },
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Launch Current File (pwa-node)",
-              cwd = vim.fn.getcwd(),
-              args = { "${file}" },
-              sourceMaps = true,
-              protocol = "inspector",
-              runtimeExecutable = "npm",
-              runtimeArgs = {
-                "run-script", "dev"
-              },
-              resolveSourceMapLocations = {
-                "${workspaceFolder}/**",
-                "!**/node_modules/**",
-              }
-
-            },
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Launch Current File (pwa-node with ts-node)",
-              cwd = vim.fn.getcwd(),
-              runtimeArgs = { "--loader", "ts-node/esm" },
-              runtimeExecutable = "node",
-              args = { "${file}" },
-              sourceMaps = true,
-              protocol = "inspector",
-              skipFiles = { "<node_internals>/**", "node_modules/**" },
-              resolveSourceMapLocations = {
-                "${workspaceFolder}/**",
-                "!**/node_modules/**",
-              },
-            },
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Launch Current File (pwa-node with deno)",
-              cwd = vim.fn.getcwd(),
-              runtimeArgs = { "run", "--inspect-brk", "--allow-all", "${file}" },
-              runtimeExecutable = "deno",
-              attachSimplePort = 9229,
-            },
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Launch Test Current File (pwa-node with jest)",
-              cwd = vim.fn.getcwd(),
-              runtimeArgs = { "${workspaceFolder}/node_modules/.bin/jest" },
-              runtimeExecutable = "node",
-              args = { "${file}", "--coverage", "false" },
-              rootPath = "${workspaceFolder}",
-              sourceMaps = true,
-              console = "integratedTerminal",
-              internalConsoleOptions = "neverOpen",
-              skipFiles = { "<node_internals>/**", "node_modules/**" },
-            },
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Launch Test Current File (pwa-node with vitest)",
-              cwd = vim.fn.getcwd(),
-              program = "${workspaceFolder}/node_modules/vitest/vitest.mjs",
-              args = { "--inspect-brk", "--threads", "false", "run", "${file}" },
-              autoAttachChildProcesses = true,
-              smartStep = true,
-              console = "integratedTerminal",
-              skipFiles = { "<node_internals>/**", "node_modules/**" },
-            },
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Launch Test Current File (pwa-node with deno)",
-              cwd = vim.fn.getcwd(),
-              runtimeArgs = { "test", "--inspect-brk", "--allow-all", "${file}" },
-              runtimeExecutable = "deno",
-              attachSimplePort = 9229,
-            },
-            {
-              type = "pwa-chrome",
-              request = "attach",
-              name = "Attach Program (pwa-chrome, select port)",
-              program = "${file}",
-              cwd = vim.fn.getcwd(),
-              sourceMaps = true,
-              protocol = 'inspector',
-              port = function()
-                return vim.fn.input("Select port: ", 9222)
-              end,
-              webRoot = "${workspaceFolder}",
-            },
-            {
-              type = "pwa-node",
-              request = "attach",
-              name = "Attach Program (pwa-node, select pid)",
-              cwd = vim.fn.getcwd(),
-              processId = dap_utils.pick_process,
-              skipFiles = { "<node_internals>/**" },
-            },
-          }
-        end
-
-        dapui.setup(opts)
-        dap.listeners.after.event_initialized["dapui_config"] = function()
-          dapui.open({})
-        end
-        dap.listeners.before.event_terminated["dapui_config"] = function()
-          dapui.close({})
-        end
-        dap.listeners.before.event_exited["dapui_config"] = function()
-          dapui.close({})
-        end
-
-        dap.defaults.cpp.external_terminal = {
-          command = "wezterm",
-          args = { "-e" },
-        }
-
-        -- keymaps
-        local keymap = vim.keymap
-        local options = {
-          noremap = true,
-          silent = true,
-        }
-        options.desc = "Toggle DAP UI"
-        keymap.set("n", "<leader>du", "<cmd>lua require('dapui').toggle()<CR>", options)
-        options.desc = "Evaluate DAP expressions"
-        keymap.set("n", "<leader>de", "<cmd>lua require('dapui').eval()<CR>", options)
-        options.desc = "Toggle breakpoint"
-        keymap.set("n", "<leader>dp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", options)
-        options.desc = "Continue execution"
-        keymap.set("n", "<leader>dc", "<cmd>lua require('dap').continue()<CR>", options)
-        options.desc = "Step into"
-        keymap.set("n", "<leader>di", "<cmd>lua require('dap').step_into()<CR>", options)
-        options.desc = "Step over"
-        keymap.set("n", "<leader>do", "<cmd>lua require('dap').step_over()<CR>", options)
-        options.desc = "Step out"
-        keymap.set("n", "<leader>dO", "<cmd>lua require('dap').step_out()<CR>", options)
-        options.desc = "Pause execution"
-        keymap.set("n", "<leader>dP", "<cmd>lua require('dap').pause()<CR>", options)
-        options.desc = "Terminate DAP session"
-        keymap.set("n", "<leader>dt", "<cmd>lua require('dap').terminate()<CR>", options)
-        options.desc = "Re-run last DAP configuration"
-        keymap.set("n", "<leader>dr", "<cmd>lua require('dap').run_last()<CR>", options)
-      end,
+      'mfussenegger/nvim-dap-python',
+      dependencies = { 'microsoft/debugpy' },
     },
+    'google/cppdap', -- cpp
+  },
+  config = function()
+    local dap = require 'dap'
+    local dapui = require 'dapui'
 
-    -- virtual text for the debugger
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      opts = {
-        enabled = true,
-        enabled_commands = true,
+    require('mason-nvim-dap').setup {
+      -- Makes a best effort to setup the various debuggers with
+      -- reasonable debug configurations
+      automatic_setup = true,
+
+      -- You can provide additional configuration to the handlers,
+      -- see mason-nvim-dap README for more information
+      handlers = {},
+
+      -- You'll need to check that you have the required things installed
+      -- online, please don't ask me how to install them :)
+      ensure_installed = {
+        -- Update this to ensure that you have the debuggers for the langs you want
+        'delve',
       },
-    },
+    }
 
-    -- mason.nvim integration
-    {
-      "jay-babu/mason-nvim-dap.nvim",
-      dependencies = "mason.nvim",
-      cmd = { "DapInstall", "DapUninstall" },
-      opts = {
-        -- Makes a best effort to setup the various debuggers with
-        -- reasonable debug configurations
-        automatic_installation = true,
+    -- keymaps
+    local keymap = vim.keymap
+    local options = {
+      noremap = true,
+      silent = true,
+    }
+    options.desc = "Toggle DAP UI"
+    keymap.set("n", "<leader>du", "<cmd>lua require('dapui').toggle()<CR>", options)
+    options.desc = "Evaluate DAP expressions"
+    keymap.set("n", "<leader>de", "<cmd>lua require('dapui').eval()<CR>", options)
+    options.desc = "Toggle breakpoint"
+    keymap.set("n", "<leader>dp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", options)
+    options.desc = "Continue execution"
+    keymap.set("n", "<leader>dc", "<cmd>lua require('dap').continue()<CR>", options)
+    options.desc = "Step into"
+    keymap.set("n", "<leader>di", "<cmd>lua require('dap').step_into()<CR>", options)
+    options.desc = "Step over"
+    keymap.set("n", "<leader>do", "<cmd>lua require('dap').step_over()<CR>", options)
+    options.desc = "Step out"
+    keymap.set("n", "<leader>dO", "<cmd>lua require('dap').step_out()<CR>", options)
+    options.desc = "Pause execution"
+    keymap.set("n", "<leader>dP", "<cmd>lua require('dap').pause()<CR>", options)
+    options.desc = "Terminate DAP session"
+    keymap.set("n", "<leader>dt", "<cmd>lua require('dap').terminate()<CR>", options)
+    options.desc = "Re-run last DAP configuration"
+    keymap.set("n", "<leader>dr", "<cmd>lua require('dap').run_last()<CR>", options)
 
-        -- You can provide additional configuration to the handlers,
-        -- see mason-nvim-dap README for more information
-        handlers = {},
-
-        -- You'll need to check that you have the required things installed
-        -- online, please don't ask me how to install them :)
-        ensure_installed = {
-          -- Update this to ensure that you have the debuggers for the langs you want
+    -- Dap UI setup
+    -- For more information, see |:help nvim-dap-ui|
+    dapui.setup {
+      -- Set icons to characters that are more likely to work in every terminal.
+      --    Feel free to remove or use ones that you like more! :)
+      --    Don't feel like these are good choices.
+      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+      controls = {
+        icons = {
+          pause = '⏸',
+          play = '▶',
+          step_into = '⏎',
+          step_over = '⏭',
+          step_out = '⏮',
+          step_back = 'b',
+          run_last = '▶▶',
+          terminate = '⏹',
+          disconnect = '⏏',
         },
       },
-    },
-  },
+    }
+
+    -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+    vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
+
+    dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+    dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+    dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+    -- Install golang specific config
+    require('dap-go').setup()
+
+    -- Install python specific config
+    require("dap-python").setup()
+  end,
 }
