@@ -65,7 +65,7 @@ return {
         tsserver = {},
         pyright = {},
         clangd = {},
-        cmake = {},
+        neocmake = {},
         gopls = {},
         bashls = {},
         dockerls = {},

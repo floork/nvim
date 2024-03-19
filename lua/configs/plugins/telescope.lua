@@ -58,6 +58,6 @@ return {
     end, opts)
 
     opts.desc = "find dap breakpoints"
-    keymap.set("n", "<leader>bf", "<cmd>Telescope dap list_breakpoints<cr>", opts)
+    keymap.set("n", "<leader>df", "<cmd>Telescope dap list_breakpoints<cr>", opts)
   end,
 }
