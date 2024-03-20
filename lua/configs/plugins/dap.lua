@@ -117,7 +117,43 @@ return {
       command = "gdb",
       args = { "-i", "dap" }
     }
+
     dap.configurations.cpp = {
+      {
+        name = "Build with CMake",
+        type = "cpp",
+        request = "launch",
+        program = function()
+          vim.fn.input("Path to build directory: ", vim.fn.getcwd() .. "/")
+          vim.api.nvim_command('!cmake --build <path_to_build_directory>')
+        end,
+      },
+      {
+        name = "Build with CMake and Launch",
+        type = "cpp",
+        request = "launch",
+        program = function()
+          vim.api.nvim_command('!cmake --build build')
+
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = "${workspaceFolder}",
+        stopAtBeginningOfMainSubprogram = false,
+      },
+      {
+        name = "Launch",
+        type = "gdb",
+        request = "launch",
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = "${workspaceFolder}",
+        stopAtBeginningOfMainSubprogram = false,
+      },
+    }
+
+    dap.configurations.c = dap.configurations.cpp
+    dap.configurations.rust = {
       {
         name = "Launch",
         type = "gdb",
