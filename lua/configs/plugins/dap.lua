@@ -126,7 +126,7 @@ return {
         program = function()
           vim.api.nvim_command('!cmake --build build')
 
-          local executable_path = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/', 'file')
+          local executable_path = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           return executable_path
         end,
         cwd = "${workspaceFolder}",
