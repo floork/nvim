@@ -1,8 +1,15 @@
 local function cmake()
   local cmake_file = "CMakeLists.txt"
-  local exists = vim.loop.fs_stat(cmake_file)
+  local cmake_exists = vim.loop.fs_stat(cmake_file)
+  local build_dir = "build"
+  local build_dir_exists = vim.loop.fs_stat(build_dir)
 
-  if exists then
+  if not build_dir_exists then
+    -- create build directory
+    vim.api.nvim_command("!cmake -B" .. build_dir)
+  end
+
+  if cmake_exists then
     vim.api.nvim_command("!cmake --build build")
   else
     print("CMakeLists.txt not found in the current directory.")

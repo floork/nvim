@@ -124,6 +124,9 @@ return {
         type = "gdb",
         request = "launch",
         program = function()
+          if vim.fn.isdirectory('build') == 0 then
+            vim.api.nvim_command('!cmake -B build')
+          end
           vim.api.nvim_command('!cmake --build build')
 
           local executable_path = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
