@@ -37,7 +37,8 @@ function Toggle_floating_terminal()
     row = math.floor((vim.api.nvim_get_option("lines") - height) / 2),
     col = math.floor((vim.api.nvim_get_option("columns") - width) / 2),
     focusable = true,
-    border = "single",
+    border = "double",
+    title = "Terminal",
   })
 
   local cmd = "zsh"
