@@ -66,7 +66,14 @@ return {
         pyright = {},
         clangd = {},
         neocmake = {},
-        gopls = {},
+        gopls = {
+          experimentalPostfixCompletions = true,
+          analyses = {
+            unusedparams = true,
+            shadow = true,
+          },
+          staticcheck = true,
+        },
         bashls = {},
         dockerls = {},
         -- rust_analyser = {},
