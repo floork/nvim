@@ -1,5 +1,6 @@
 return {
   "laytan/cloak.nvim",
+  dependencies = { "nvim-telescope/telescope.nvim" },
   config = function()
     require("cloak").setup({
       enabled = true,
@@ -18,7 +19,10 @@ return {
           -- Match an equals sign and any character after it.
           -- This can also be a table of patterns to cloak,
           -- example: cloak_pattern = { ":.+", "-.+" } for yaml files.
-          cloak_pattern = "=.+",
+          cloak_pattern = {
+            ":.+",
+            "=.+",
+          },
         },
       },
     })
