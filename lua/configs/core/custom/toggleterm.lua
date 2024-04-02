@@ -77,8 +77,6 @@ end
 local keymap = vim.keymap
 change_terminal_key("<C-t>")
 
-
-
 keymap.set(
   "n",
   toggle_terminal_key,
