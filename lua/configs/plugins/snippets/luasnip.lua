@@ -13,12 +13,12 @@ return {
     local opts = { noremap = true, silent = true }
 
     opts.desc = "jump forward"
-    keymap.set({ "i", "s" }, "<C-N>", function()
+    keymap.set({ "i", "s" }, "<C-n>", function()
       ls.jump(1)
     end, opts)
 
     opts.desc = "jump backward"
-    keymap.set({ "i", "s" }, "<C-P>", function()
+    keymap.set({ "i", "s" }, "<C-p>", function()
       ls.jump(-1)
     end, opts)
   end,

@@ -35,7 +35,7 @@ return {
     local opts = { noremap = true, silent = true }
 
     opts.desc = "Add current file to harpoon"
-    keymap.set("n", "<leader>hm", function() harpoon:list():append() end, opts)
+    keymap.set("n", "<leader>hm", function() harpoon:list():add() end, opts)
     opts.desc = "Toggle harpoon menu"
     keymap.set("n", "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts)
     opts.desc = "Go to harpoon previous entry"
