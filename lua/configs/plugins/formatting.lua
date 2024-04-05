@@ -23,6 +23,7 @@ return {
         python = { "isort", "black" },                            -- Python formatters (isort, black)
         rust = { "rust_analyzer" },                               -- Rust formatter (rustfmt)
         svelte = { "prettier" },                                  -- Svelte formatter (prettier)
+        toml = { "prettier" },                                    -- TOML formatter (prettier)
         typescript = { "prettier" },                              -- TypeScript formatter (prettier)
         typescriptreact = { "prettier" },                         -- TypeScript React formatter (prettier)
         yml = { "prettier" },                                     -- YAML formatter (prettier)
