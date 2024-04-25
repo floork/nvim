@@ -55,4 +55,3 @@
   "vim-apm": { "branch": "master", "commit": "96d452bb97c7b147b87edf75b53d5d724fb4bf64" },
   "vim-sleuth": { "branch": "master", "commit": "1cc4557420f215d02c4d2645a748a816c220e99b" },
   "vim-tmux-navigator": { "branch": "master", "commit": "a26954a585b02a2ac02f87145e204f8798a7cbc2" }
-}

@@ -1,6 +1,8 @@
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
+  -- "harpoon",
+  -- dir = "~/GIT/GitHub/harpoon/",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
