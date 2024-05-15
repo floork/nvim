@@ -41,7 +41,9 @@ return {
     local builtins = require("telescope.builtin")
 
     opts.desc = "Fuzzy find files"
-    keymap.set("n", "<leader>fl", "<cmd>Telescope find_files find_command=fd,--hidden,--type,file<cr>", opts)
+    keymap.set("n", "<leader>fl",
+      "<cmd>Telescope find_files find_command=fd,--hidden,--no-ignore,--ignore-file,~/.config/fd/ignore,--type,file<cr>",
+      opts)
     opts.desc = "Fuzzy find string"
     keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep hidden=true<cr>", opts)
 
