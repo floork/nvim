@@ -40,3 +40,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("BufReadPre", {
+  desc = "Autocommand to trigger function when opening a buffer",
+  pattern = "*",
+  callback = function()
+    local shebang = vim.fn.getline(1)
+    if shebang:match('^#!.*/bash') then
+      vim.bo.filetype = 'sh'
+    elseif shebang:match('^#!.*/lua') then
+      vim.bo.filetype = 'lua'
+    end
+  end,
+})
