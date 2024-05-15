@@ -1,9 +1,7 @@
 return {
   "declancm/maximize.nvim",
   config = function()
-    require("maximize").setup({
-      default_keymaps = false
-    })
+    require("maximize").setup()
 
     local keymap = vim.keymap
     local opts = { noremap = true, silent = true }
