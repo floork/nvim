@@ -24,6 +24,7 @@ opt.inccommand = "split"
 opt.cursorline = true
 
 -- Search
+opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = false
 opt.incsearch = true
