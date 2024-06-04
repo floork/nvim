@@ -42,7 +42,7 @@ return {
 
     opts.desc = "Fuzzy find files"
     keymap.set("n", "<leader>fl",
-      "<cmd>Telescope find_files find_command=fd,--hidden,--no-ignore,--ignore-file,~/.config/fd/ignore,--type,file<cr>",
+      "<cmd>Telescope find_files find_command=fd,--hidden,--type=file<cr>",
       opts)
     opts.desc = "Fuzzy find string"
     keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep hidden=true<cr>", opts)
