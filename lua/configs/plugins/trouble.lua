@@ -13,7 +13,7 @@ return {
 
     opts.desc = "Toggle trouble"
     keymap.set("n", "<leader>xx", function()
-      require("trouble").toggle()
+      require("trouble").toggle("diagnostics")
     end, opts)
     opts.desc = "Toggle quickfix"
     keymap.set("n", "<leader>[f", function()
