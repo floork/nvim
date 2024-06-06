@@ -27,8 +27,8 @@ keymap.set("n", "U", "i<Enter><Esc>", { desc = "Split lines at cursor", noremap 
 -- Split lines without moving cursor
 keymap.set(
   "n",
-  "K",
-  [[:s/\v(%#\_.{-})/\1\r]],
+  "N",
+  [[:execute "normal! m`" | s/\v(%#\_.{-})/\1\r/ | execute "normal! ``"<CR>]],
   { desc = "Split lines without moving cursor", noremap = true, silent = true }
 )
 
