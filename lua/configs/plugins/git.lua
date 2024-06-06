@@ -24,7 +24,8 @@ return {
     end,
   },
   {
-    "ThePrimeagen/git-worktree.nvim",
+    "polarmutex/git-worktree.nvim",
+    branch = "v2",
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
@@ -37,9 +38,13 @@ return {
       local keymap = vim.keymap
       local opts = { noremap = true, silent = true }
       opts.desc = "Open git worktree"
-      keymap.set("n", "<leader>gw", "<cmd>Telescope git_worktree git_worktrees<cr>", opts)
+      keymap.set("n", "<leader>gw",
+        function() require('telescope').extensions.git_worktree.git_worktrees() end,
+        opts)
       opts.desc = "Create git worktree"
-      keymap.set("n", "<leader>gm", "<cmd>Telescope git_worktree create_git_worktree<cr>", opts)
+      keymap.set("n", "<leader>gm",
+        function() require('telescope').extensions.git_worktree.create_git_worktree() end,
+        opts)
     end,
   },
   {

@@ -12,6 +12,7 @@ return {
     },
     "nvim-tree/nvim-web-devicons",
     "nvim-telescope/telescope-dap.nvim",
+    "polarmutex/git-worktree.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -34,6 +35,7 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("dap")
+    telescope.load_extension('git_worktree')
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
