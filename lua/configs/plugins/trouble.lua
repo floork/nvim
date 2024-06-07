@@ -19,13 +19,5 @@ return {
     keymap.set("n", "<leader>[f", function()
       require("trouble").toggle("quickfix")
     end, opts)
-    opts.desc = "previous trouble"
-    keymap.set("n", "[d", function()
-      require("trouble").previous({ skip_groups = true, jump = true })
-    end, opts)
-    opts.desc = "next trouble"
-    keymap.set("n", "]d", function()
-      require("trouble").next({ skip_groups = true, jump = true })
-    end, opts)
   end,
 }
