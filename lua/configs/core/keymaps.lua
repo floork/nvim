@@ -24,13 +24,5 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up", noremap = true
 keymap.set("n", "J", "mzJ`z", { desc = "Join lines without moving cursor", noremap = true, silent = true })
 keymap.set("n", "U", "i<Enter><Esc>", { desc = "Split lines at cursor", noremap = true })
 
--- Split lines without moving cursor
-keymap.set(
-  "n",
-  "N",
-  [[:execute "normal! m`" | s/\v(%#\_.{-})/\1\r/ | execute "normal! ``"<CR>]],
-  { desc = "Split lines without moving cursor", noremap = true, silent = true }
-)
-
 -- Toggle file explorer
 keymap.set("n", "<leader>ee", vim.cmd.Ex, { desc = "Toggle file explorer", noremap = true, silent = true })
