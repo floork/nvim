@@ -5,3 +5,11 @@ vim.api.nvim_create_user_command(
   end,
   { nargs = 0, desc = "Save all files" }
 )
+
+vim.api.nvim_create_user_command(
+  "Wa",
+  function()
+    vim.cmd("wa")
+  end,
+  { nargs = 0, desc = "Save all files" }
+)
