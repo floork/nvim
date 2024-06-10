@@ -1,6 +1,7 @@
 require("configs.core.keymaps")
 require("configs.core.options")
 require("configs.core.autocommands")
+require("configs.core.usercommands")
 require("configs.core.custom")
 
 -- netrw
