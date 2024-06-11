@@ -26,3 +26,6 @@ keymap.set("n", "U", "i<Enter><Esc>", { desc = "Split lines at cursor", noremap 
 
 -- Toggle file explorer
 keymap.set("n", "<leader>ee", vim.cmd.Ex, { desc = "Toggle file explorer", noremap = true, silent = true })
+
+-- Readjust the Window size
+keymap.set("n", "<leader>ww", "<cmd>wincmd =<CR>", { desc = "Readjust the window size", noremap = true, silent = true })
