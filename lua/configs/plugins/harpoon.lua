@@ -36,14 +36,20 @@ return {
     local keymap = vim.keymap
     local opts = { noremap = true, silent = true }
 
-    opts.desc = "Add current file to harpoon"
-    keymap.set("n", "<leader>hm", function() harpoon:list():add() end, opts)
-    opts.desc = "Toggle harpoon menu"
-    keymap.set("n", "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts)
+    opts.desc = "Add current file to primary harpoon list"
+    keymap.set("n", "<leader>hm", function() harpoon:list("primary"):add() end, opts)
+    opts.desc = "Toggle primary harpoon menu"
+    keymap.set("n", "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list("primary")) end, opts)
     opts.desc = "Go to harpoon previous entry"
-    keymap.set("n", "<leader>hp", function() harpoon:list():prev() end, opts)
+    keymap.set("n", "<leader>hp", function() harpoon:list("primary"):prev() end, opts)
     opts.desc = "Go to harpoon next entry"
-    keymap.set("n", "<leader>hn", function() harpoon:list():next() end, opts)
+    keymap.set("n", "<leader>hn", function() harpoon:list("primary"):next() end, opts)
+
+
+    opts.desc = "Add current file to secondary harpoon list"
+    keymap.set("n", "<leader>ho", function() harpoon:list("secondary"):add() end, opts)
+    opts.desc = "Toggle secondary harpoon menu"
+    keymap.set("n", "<leader>hi", function() harpoon.ui:toggle_quick_menu(harpoon:list("secondary")) end, opts)
 
     local conf = require("telescope.config").values
     local function toggle_telescope(harpoon_files)
