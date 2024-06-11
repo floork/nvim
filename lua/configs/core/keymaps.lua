@@ -17,8 +17,8 @@ keymap.set(
 )
 
 -- Move Lines UP and DOWN
-keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down", noremap = true, silent = true })
-keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up", noremap = true, silent = true })
+keymap.set("v", "J", "<cmd>m '>+1<CR>gv=gv", { desc = "Move line down", noremap = true, silent = true })
+keymap.set("v", "K", "<cmd>m '<-2<CR>gv=gv", { desc = "Move line up", noremap = true, silent = true })
 
 -- Join lines without moving cursor
 keymap.set("n", "J", "mzJ`z", { desc = "Join lines without moving cursor", noremap = true, silent = true })
