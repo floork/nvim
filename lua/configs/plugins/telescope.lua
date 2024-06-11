@@ -44,10 +44,17 @@ return {
 
     opts.desc = "Fuzzy find files"
     keymap.set("n", "<leader>fl",
-      "<cmd>Telescope find_files find_command=fd,--hidden,--type=file<cr>",
+      function()
+        builtins.find_files({
+          find_command = { 'fd', '--hidden', '--type', 'file' },
+          previewer = false,
+        })
+      end,
       opts)
     opts.desc = "Fuzzy find string"
-    keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep hidden=true<cr>", opts)
+    keymap.set("n", "<leader>fs", function()
+      builtins.live_grep({ hidden = true, })
+    end, opts)
 
     opts.desc = "[/] Fuzzily search in current buffer"
     vim.keymap.set('n', '<leader>/', function()
