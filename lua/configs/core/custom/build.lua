@@ -28,12 +28,29 @@ local function go()
   vim.api.nvim_command("!go build")
 end
 
+local function checkCMakeFile()
+  local filepath = vim.api.nvim_buf_get_name(0)
+  local filename = string.lower(vim.fn.fnamemodify(filepath, ':t'))
+
+  if filename == "cmakelists.txt" then
+    cmake()
+    return true
+  end
+
+  return false
+end
+
 function Build()
+  if checkCMakeFile() then
+    return
+  end
+
   local type = vim.bo.filetype
 
   local types = {
     ["c"] = cmake,
     ["cpp"] = cmake,
+    ["cmake"] = cmake,
     ["py"] = python,
     ["go"] = go,
     ["rust"] = cargo
