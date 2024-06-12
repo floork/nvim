@@ -6,7 +6,7 @@ local function cmake()
 
   if not build_dir_exists then
     -- create build directory
-    vim.api.nvim_command("!cmake -B" .. build_dir)
+    vim.api.nvim_command("!cmake -B " .. build_dir)
   end
 
   if cmake_exists then
