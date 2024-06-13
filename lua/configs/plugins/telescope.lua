@@ -51,6 +51,17 @@ return {
         })
       end,
       opts)
+
+    opts.desc = "Fuzzy find files ignore local .fdignore"
+    keymap.set("n", "<leader>fa",
+      function()
+        builtins.find_files({
+          find_command = { 'fd', '--no-ignore', '--hidden', '--type', 'file' },
+          previewer = false,
+        })
+      end,
+      opts)
+
     opts.desc = "Fuzzy find string"
     keymap.set("n", "<leader>fs", function()
       builtins.live_grep({ hidden = true, })
