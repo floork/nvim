@@ -9,8 +9,10 @@ return {
   config = function()
     local treesitter = require("nvim-treesitter.configs")
 
+    ---@class ParserInfo
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
+    ---@class parser_config.nu : ParserInfo
     parser_config.nu = {
       install_info = {
         url = "https://github.com/nushell/tree-sitter-nu",
@@ -54,6 +56,9 @@ return {
         "python",
       },
       auto_install = true,
+      sync_install = false,
+      ignore_install = {},
+      modules = {},
     })
   end,
 }

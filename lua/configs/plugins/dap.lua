@@ -1,11 +1,3 @@
--- debug.lua
---
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
-
 return {
   'mfussenegger/nvim-dap',
   dependencies = {
@@ -30,12 +22,13 @@ return {
   },
   config = function()
     local dap = require 'dap'
-    local dapui = require 'dapui'
 
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
       automatic_setup = true,
+
+      automatic_installation = false,
 
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
@@ -77,6 +70,7 @@ return {
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
+    local dapui = require("dapui")
     dapui.setup {
       -- Set icons to characters that are more likely to work in every terminal.
       --    Feel free to remove or use ones that you like more! :)
@@ -97,10 +91,6 @@ return {
       },
     }
 
-    -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-    vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
-
-    dapui.setup()
     dap.listeners.after.event_initialized["dapui_config"] = function()
       dapui.open({})
     end
@@ -144,6 +134,20 @@ return {
         cwd = "${workspaceFolder}",
         stopAtBeginningOfMainSubprogram = false,
       },
+      {
+        name = "Launch with arguments",
+        type = "gdb",
+        request = "launch",
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = "${workspaceFolder}",
+        stopAtBeginningOfMainSubprogram = false,
+        args = function()
+          local args_string = vim.fn.input('Arguments: ')
+          return vim.split(args_string, " ")
+        end,
+      },
     }
 
     dap.configurations.c = dap.configurations.cpp
@@ -157,6 +161,20 @@ return {
         end,
         cwd = "${workspaceFolder}",
         stopAtBeginningOfMainSubprogram = false,
+      },
+      {
+        name = "Launch with arguments",
+        type = "gdb",
+        request = "launch",
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = "${workspaceFolder}",
+        stopAtBeginningOfMainSubprogram = false,
+        args = function()
+          local args_string = vim.fn.input('Arguments: ')
+          return vim.split(args_string, " ")
+        end,
       },
     }
 
