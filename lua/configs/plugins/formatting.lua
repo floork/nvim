@@ -16,17 +16,13 @@ return {
         graphql = { "prettier" },                                 -- GraphQL formatter (prettier)
         html = { "prettier" },                                    -- HTML formatter (prettier)
         javascript = { "prettier" },                              -- JavaScript formatter (prettier)
-        javascriptreact = { "prettier" },                         -- JavaScript React formatter (prettier)
         json = { "prettier" },                                    -- JSON formatter (prettier)
         lua = { "stylua --indent-width 2 --indent-type Spaces" }, -- Lua formatter (stylua)
         markdown = { "prettier" },                                -- Markdown formatter (prettier)
         nix = { "nixfmt" },                                       -- Nix formatter (nixfmt)
         python = { "isort", "black" },                            -- Python formatters (isort, black)
         rust = { "rust_analyzer" },                               -- Rust formatter (rustfmt)
-        svelte = { "prettier" },                                  -- Svelte formatter (prettier)
         toml = { "prettier" },                                    -- TOML formatter (prettier)
-        typescript = { "prettier" },                              -- TypeScript formatter (prettier)
-        typescriptreact = { "prettier" },                         -- TypeScript React formatter (prettier)
         yml = { "prettier" },                                     -- YAML formatter (prettier)
       },
       format_on_save = {
@@ -43,12 +39,15 @@ return {
     }
 
     local keymap = vim.keymap
+    local opts = { noremap = true, silent = true }
+
+    opts.desc = "Format file or range (in visual mode)"
     keymap.set({ "n", "v" }, "<leader>mf", function()
       conform.format({
         lsp_fallback = true,
         async = false,
         timeout_ms = 1000,
       })
-    end, { desc = "Format file or range (in visual mode)" })
+    end, opts)
   end,
 }

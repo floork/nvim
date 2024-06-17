@@ -6,10 +6,6 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
-      -- "simrat39/rust-tools.nvim",
-      -- "nvim-lua/plenary.nvim",
-      -- "mfussenegger/nvim-dap",
-      -- { "antosha417/nvim-lsp-file-operations", config = true },
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       { "j-hui/fidget.nvim", opts = {} },
     },
@@ -26,9 +22,7 @@ return {
       end
 
       local servers = {
-        ansiblels = {},
         html = {},
-        tsserver = {},
         pyright = {},
         clangd = {},
         neocmake = {},
@@ -98,24 +92,17 @@ return {
         "docker_compose_language_service",
         "emmet_ls",
         "gopls",
-        "graphql",
         "html",
-        "htmx-lsp",
         "jsonls",
         "lua_ls",
         "marksman",
         "neocmake",
-        "prismals",
         "pyright",
         "nil_ls",
         "rust_analyzer",
-        "svelte",
-        "tailwindcss",
-        "taplo",
         "tsserver",
         "volar",
         "yamlls",
-        "zls",
         --
         "black",        -- Python code formatter
         "clang-format", -- C++ code formatter
@@ -128,7 +115,6 @@ return {
         "pylint",       -- Python code linter
         "nixpkgs-fmt",  -- Nix code formatter
         "stylua",       -- Lua code formatter
-
       })
       require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -141,39 +127,6 @@ return {
           end,
         },
       })
-
-      -- require("mason-lspconfig").setup_handlers({
-      --   function(server_name)
-      --     require("lspconfig")[server_name].setup({ on_attach = on_attach, capabilities = capabilities })
-      --   end,
-      --
-      --   ["rust_analyzer"] = function()
-      --     require("rust-tools").setup()
-      --   end,
-      -- })
-      --
-      -- local rt = require("rust-tools")
-      --
-      -- rt.setup({
-      --   server = {
-      --     on_attach = function(_, bufnr)
-      --       -- Hover actions
-      --       keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      --       -- Code action groups
-      --       keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-      --     end,
-      --   },
-      --   opts = {
-      --     tools = {
-      --       inlay_hints = {
-      --         highlight = "#ff0000",
-      --         only_current_line = false,
-      --       },
-      --     },
-      --   },
-      -- })
-      -- rt.inlay_hints.set()
-      -- rt.inlay_hints.enable()
     end,
   },
 }
