@@ -44,7 +44,7 @@ return {
     opts.desc = "Format file or range (in visual mode)"
     keymap.set({ "n", "v" }, "<leader>mf", function()
       conform.format({
-        lsp_fallback = true,
+        lsp_format = "fallback",
         async = false,
         timeout_ms = 1000,
       })
