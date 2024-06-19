@@ -19,6 +19,6 @@ return {
     local opt = { noremap = true, silent = true }
 
     opt.desc = "Git blame"
-    keymap.set('n', '<leader>gb', function() gs.blame_line { full = true } end, opt)
+    keymap.set('n', '<leader>gb', "<CMD>Gitsigns blame<cr>", opt)
   end,
 }
