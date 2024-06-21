@@ -72,17 +72,6 @@ return {
         },
       }
 
-      local mason = require("mason")
-      mason.setup({
-        ui = {
-          icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗",
-          },
-          border = "single",
-        },
-      })
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         "bashls",
