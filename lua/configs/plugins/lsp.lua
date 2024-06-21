@@ -80,6 +80,7 @@ return {
             package_pending = "➜",
             package_uninstalled = "✗",
           },
+          border = "single",
         },
       })
       local ensure_installed = vim.tbl_keys(servers or {})
