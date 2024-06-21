@@ -11,14 +11,6 @@ return {
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
-
-    -- Add your own debuggers here
-    'leoluz/nvim-dap-go', -- go
-    {
-      'mfussenegger/nvim-dap-python',
-      dependencies = { 'microsoft/debugpy' },
-    },
-    'google/cppdap', -- cpp
   },
   config = function()
     local dap = require 'dap'
@@ -177,11 +169,5 @@ return {
         end,
       },
     }
-
-    -- Install golang specific config
-    require('dap-go').setup()
-
-    -- Install python specific config
-    require("dap-python").setup()
   end,
 }

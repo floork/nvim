@@ -1,6 +1,5 @@
 return {
   "folke/trouble.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     -- keymap
     local keymap = vim.keymap

@@ -15,7 +15,6 @@ return {
     },
     "nvim-tree/nvim-web-devicons",       -- Optional icons for UI
     "nvim-telescope/telescope-dap.nvim", -- DAP integration for Telescope
-    "polarmutex/git-worktree.nvim",      -- Git worktree management
     "ThePrimeagen/harpoon",              -- Quick file navigation
   },
   -- Plugin configuration
@@ -48,7 +47,6 @@ return {
     -- Load Telescope extensions
     telescope.load_extension("fzf")
     telescope.load_extension("dap")
-    telescope.load_extension('git_worktree')
 
     -- Set keymaps for Telescope
     local keymap = vim.keymap                      -- For conciseness
@@ -105,15 +103,5 @@ return {
     local possible_comment_types = "FIX|TODO|HACK|WARN|PERF|NOTE|TEST"
     opts.desc = possible_comment_types
     keymap.set("n", "<leader>;;", "<cmd>TodoTelescope<cr>", opts)
-
-    -- Keymaps for Git worktree management
-    opts.desc = "Open git worktree"
-    keymap.set("n", "<leader>gw",
-      function() require('telescope').extensions.git_worktree.git_worktrees() end,
-      opts)
-    opts.desc = "Create git worktree"
-    keymap.set("n", "<leader>gm",
-      function() require('telescope').extensions.git_worktree.create_git_worktree() end,
-      opts)
   end,
 }
