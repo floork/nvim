@@ -20,7 +20,4 @@ return {
       keymap.set("n", "<C-l>", "<CMD>TmuxNavigateRight<CR>", opts)
     end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-  },
 }

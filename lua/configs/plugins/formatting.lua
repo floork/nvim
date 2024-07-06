@@ -13,7 +13,6 @@ return {
         cpp = { "my_cpp" },                                       -- C++ formatter (clang-format)
         css = { "prettier" },                                     -- CSS formatter (prettier)
         go = { "gofmt" },                                         -- Go formatter (gofmt)
-        graphql = { "prettier" },                                 -- GraphQL formatter (prettier)
         html = { "prettier" },                                    -- HTML formatter (prettier)
         javascript = { "prettier" },                              -- JavaScript formatter (prettier)
         json = { "prettier" },                                    -- JSON formatter (prettier)

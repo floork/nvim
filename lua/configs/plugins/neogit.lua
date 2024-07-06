@@ -2,15 +2,11 @@ return {
   "NeogitOrg/neogit",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "sindrets/diffview.nvim",
   },
   config = function()
     local neogit = require("neogit")
 
     neogit.setup({
-      integrations = {
-        diffview = true,
-      },
       disable_prompt_on_change = true,
     })
 
