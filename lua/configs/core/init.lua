@@ -14,5 +14,6 @@ vim.g.netrw_list_depth = 999
 vim.filetype.add({
   filename = {
     ["gitconfig"] = ".gitconfig",
+    ["DOCKERFILE"] = "dockerfile",
   },
 })
