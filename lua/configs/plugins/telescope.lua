@@ -98,10 +98,5 @@ return {
     -- Keymap for finding DAP breakpoints
     opts.desc = "Find DAP breakpoints"
     keymap.set("n", "<leader>df", "<cmd>Telescope dap list_breakpoints<cr>", opts)
-
-    -- Keymap for Todo comments
-    local possible_comment_types = "FIX|TODO|HACK|WARN|PERF|NOTE|TEST"
-    opts.desc = possible_comment_types
-    keymap.set("n", "<leader>;;", "<cmd>TodoTelescope<cr>", opts)
   end,
 }
