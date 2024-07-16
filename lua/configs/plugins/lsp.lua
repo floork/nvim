@@ -71,6 +71,12 @@ return {
           },
         },
       }
+      local mason = require("mason")
+      mason.setup({
+        ui = {
+          border = "single",
+        },
+      })
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
