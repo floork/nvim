@@ -13,9 +13,7 @@ return {
         return vim.fn.executable("make") == 1 -- Only build if 'make' is available
       end,
     },
-    -- "nvim-tree/nvim-web-devicons",       -- Optional icons for UI
-    "nvim-telescope/telescope-dap.nvim", -- DAP integration for Telescope
-    "ThePrimeagen/harpoon",              -- Quick file navigation
+    "ThePrimeagen/harpoon", -- Quick file navigation
   },
   -- Plugin configuration
   config = function()
@@ -46,7 +44,6 @@ return {
 
     -- Load Telescope extensions
     telescope.load_extension("fzf")
-    telescope.load_extension("dap")
 
     -- Set keymaps for Telescope
     local keymap = vim.keymap                      -- For conciseness
@@ -94,9 +91,5 @@ return {
     keymap.set("n", "<leader>fc", function()
       builtins.find_files({ cwd = vim.fn.stdpath("config") })
     end, opts)
-
-    -- Keymap for finding DAP breakpoints
-    opts.desc = "Find DAP breakpoints"
-    keymap.set("n", "<leader>df", "<cmd>Telescope dap list_breakpoints<cr>", opts)
   end,
 }
