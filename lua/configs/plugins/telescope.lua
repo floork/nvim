@@ -13,7 +13,6 @@ return {
         return vim.fn.executable("make") == 1 -- Only build if 'make' is available
       end,
     },
-    "ThePrimeagen/harpoon", -- Quick file navigation
   },
   -- Plugin configuration
   config = function()
