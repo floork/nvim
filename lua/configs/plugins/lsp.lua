@@ -35,7 +35,7 @@ return {
         },
         bashls = {},
         dockerls = {},
-        -- rust_analyser = {},
+        rust_analyzer = {},
         nil_ls = {},
         volar = {
           filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
