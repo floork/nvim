@@ -1,9 +1,51 @@
 return {
-  -- Plugin repository
   "nvim-telescope/telescope.nvim",
-  -- Specify branch
   branch = "0.1.x",
-  -- Plugin dependencies
+  keys = {
+    {
+      "fl",
+      function()
+        require("telescope.builtin").find_files({
+          find_command = { 'fd', '--hidden', '--type', 'file' },
+          previewer = false,
+        })
+      end,
+      desc = "Fuzzy find files"
+    },
+    {
+      "<leader>fa",
+      function()
+        require("telescope.builtin").find_files({
+          find_command = { 'fd', '--no-ignore', '--hidden', '--type', 'file' },
+          previewer = false,
+        })
+      end,
+      desc = "Fuzzy find files ignore local .fdignore"
+    },
+    {
+      "<leader>fs",
+      function()
+        require("telescope.builtin").live_grep({ hidden = true, })
+      end,
+      desc = "Fuzzy find string"
+    },
+    {
+      '<leader>/',
+      function()
+        require("telescope.builtin").current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          previewer = false,
+        })
+      end,
+      desc = "[/] Fuzzily search in current buffer"
+    },
+    {
+      "<leader>fc",
+      function()
+        require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
+      end,
+      desc = "[S]earch [N]eovim files"
+    }
+  },
   dependencies = {
     "nvim-lua/plenary.nvim", -- Required Lua functions for Neovim
     {
@@ -40,55 +82,5 @@ return {
         },
       },
     })
-
-    -- Load Telescope extensions
-    telescope.load_extension("fzf")
-
-    -- Set keymaps for Telescope
-    local keymap = vim.keymap                      -- For conciseness
-    local opts = { noremap = true, silent = true } -- Keymap options
-    local builtins = require("telescope.builtin")  -- Telescope built-in pickers
-
-    -- Keymap for fuzzy finding files
-    opts.desc = "Fuzzy find files"
-    keymap.set("n", "<leader>fl",
-      function()
-        builtins.find_files({
-          find_command = { 'fd', '--hidden', '--type', 'file' },
-          previewer = false,
-        })
-      end,
-      opts)
-
-    -- Keymap for fuzzy finding files ignoring local .fdignore
-    opts.desc = "Fuzzy find files ignore local .fdignore"
-    keymap.set("n", "<leader>fa",
-      function()
-        builtins.find_files({
-          find_command = { 'fd', '--no-ignore', '--hidden', '--type', 'file' },
-          previewer = false,
-        })
-      end,
-      opts)
-
-    -- Keymap for fuzzy finding a string
-    opts.desc = "Fuzzy find string"
-    keymap.set("n", "<leader>fs", function()
-      builtins.live_grep({ hidden = true, })
-    end, opts)
-
-    -- Keymap for fuzzy search in current buffer
-    opts.desc = "[/] Fuzzily search in current buffer"
-    vim.keymap.set('n', '<leader>/', function()
-      builtins.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-        previewer = false,
-      })
-    end)
-
-    -- Keymap for searching Neovim configuration files
-    opts.desc = "[S]earch [N]eovim files"
-    keymap.set("n", "<leader>fc", function()
-      builtins.find_files({ cwd = vim.fn.stdpath("config") })
-    end, opts)
   end,
 }

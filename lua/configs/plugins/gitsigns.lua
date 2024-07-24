@@ -9,16 +9,12 @@ return {
       changedelete = { text = "~" },
     },
   },
+  keys = {
+    { "<leader>gb", "<CMD>Gitsigns blame<cr>", desc = "Git blame" }
+  },
   config = function(_, opts)
     local gs = require("gitsigns")
 
     gs.setup(opts)
-
-    -- keymaps
-    local keymap = vim.keymap
-    local opt = { noremap = true, silent = true }
-
-    opt.desc = "Git blame"
-    keymap.set('n', '<leader>gb', "<CMD>Gitsigns blame<cr>", opt)
   end,
 }
