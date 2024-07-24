@@ -1,151 +1,75 @@
 return {
-  -- 'mfussenegger/nvim-dap',
-  -- dependencies = {
-  --   -- Creates a beautiful debugger UI
-  --   'rcarriga/nvim-dap-ui',
-  --   'nvim-neotest/nvim-nio',
-  --
-  --   -- Installs the debug adapters for you
-  --   'williamboman/mason.nvim',
-  -- },
-  -- config = function()
-  --   local dap = require('dap')
-  --
-  --   -- keymaps
-  --   local keymap = vim.keymap
-  --   local options = {
-  --     noremap = true,
-  --     silent = true,
-  --   }
-  --   options.desc = "Toggle DAP UI"
-  --   keymap.set("n", "<leader>du", "<cmd>lua require('dapui').toggle()<CR>", options)
-  --   options.desc = "Evaluate DAP expressions"
-  --   keymap.set("n", "<leader>de", "<cmd>lua require('dapui').eval()<CR>", options)
-  --   options.desc = "Toggle breakpoint"
-  --   keymap.set("n", "<leader>dp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", options)
-  --   options.desc = "Continue execution"
-  --   keymap.set("n", "<leader>dc", "<cmd>lua require('dap').continue()<CR>", options)
-  --   options.desc = "Step into"
-  --   keymap.set("n", "<leader>di", "<cmd>lua require('dap').step_into()<CR>", options)
-  --   options.desc = "Step over"
-  --   keymap.set("n", "<leader>do", "<cmd>lua require('dap').step_over()<CR>", options)
-  --   options.desc = "Step out"
-  --   keymap.set("n", "<leader>dO", "<cmd>lua require('dap').step_out()<CR>", options)
-  --   options.desc = "Pause execution"
-  --   keymap.set("n", "<leader>dP", "<cmd>lua require('dap').pause()<CR>", options)
-  --   options.desc = "Terminate DAP session"
-  --   keymap.set("n", "<leader>dt", "<cmd>lua require('dap').terminate()<CR>", options)
-  --   options.desc = "Re-run last DAP configuration"
-  --   keymap.set("n", "<leader>dr", "<cmd>lua require('dap').run_last()<CR>", options)
-  --
-  --   -- Dap UI setup
-  --   -- For more information, see |:help nvim-dap-ui|
-  --   local dapui = require("dapui")
-  --   dapui.setup {
-  --     -- Set icons to characters that are more likely to work in every terminal.
-  --     --    Feel free to remove or use ones that you like more! :)
-  --     --    Don't feel like these are good choices.
-  --     icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-  --     controls = {
-  --       icons = {
-  --         pause = '⏸',
-  --         play = '▶',
-  --         step_into = '⏎',
-  --         step_over = '⏭',
-  --         step_out = '⏮',
-  --         step_back = 'b',
-  --         run_last = '▶▶',
-  --         terminate = '⏹',
-  --         disconnect = '⏏',
-  --       },
-  --     },
-  --   }
-  --
-  --   dap.listeners.after.event_initialized["dapui_config"] = function()
-  --     dapui.open({})
-  --   end
-  --   dap.listeners.before.event_terminated["dapui_config"] = function()
-  --     dapui.close({})
-  --   end
-  --   dap.listeners.before.event_exited["dapui_config"] = function()
-  --     dapui.close({})
-  --   end
-  --
-  --   dap.adapters.gdb = {
-  --     type = "executable",
-  --     command = "gdb",
-  --     args = { "-i", "dap" }
-  --   }
-  --
-  --   dap.configurations.cpp = {
-  --     {
-  --       name = "Build with CMake and Launch",
-  --       type = "gdb",
-  --       request = "launch",
-  --       program = function()
-  --         if vim.fn.isdirectory('build') == 0 then
-  --           vim.api.nvim_command('!cmake -B build')
-  --         end
-  --         vim.api.nvim_command('!cmake --build build')
-  --
-  --         local executable_path = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-  --         return executable_path
-  --       end,
-  --       cwd = "${workspaceFolder}",
-  --       stopAtBeginningOfMainSubprogram = false,
-  --     },
-  --     {
-  --       name = "Launch",
-  --       type = "gdb",
-  --       request = "launch",
-  --       program = function()
-  --         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-  --       end,
-  --       cwd = "${workspaceFolder}",
-  --       stopAtBeginningOfMainSubprogram = false,
-  --     },
-  --     {
-  --       name = "Launch with arguments",
-  --       type = "gdb",
-  --       request = "launch",
-  --       program = function()
-  --         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-  --       end,
-  --       cwd = "${workspaceFolder}",
-  --       stopAtBeginningOfMainSubprogram = false,
-  --       args = function()
-  --         local args_string = vim.fn.input('Arguments: ')
-  --         return vim.split(args_string, " ")
-  --       end,
-  --     },
-  --   }
-  --
-  --   dap.configurations.c = dap.configurations.cpp
-  --   dap.configurations.rust = {
-  --     {
-  --       name = "Launch",
-  --       type = "gdb",
-  --       request = "launch",
-  --       program = function()
-  --         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-  --       end,
-  --       cwd = "${workspaceFolder}",
-  --       stopAtBeginningOfMainSubprogram = false,
-  --     },
-  --     {
-  --       name = "Launch with arguments",
-  --       type = "gdb",
-  --       request = "launch",
-  --       program = function()
-  --         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-  --       end,
-  --       cwd = "${workspaceFolder}",
-  --       stopAtBeginningOfMainSubprogram = false,
-  --       args = function()
-  --         local args_string = vim.fn.input('Arguments: ')
-  --         return vim.split(args_string, " ")
-  --       end,
-  --     },
-  --   }
-  -- end,
+  'mfussenegger/nvim-dap',
+  dependencies = {
+    -- Creates a beautiful debugger UI
+    'rcarriga/nvim-dap-ui',
+    'nvim-neotest/nvim-nio',
+  },
+  keys = {
+    { "<leader>du", "<cmd>lua require('dapui').toggle()<CR>",          desc = "Toggle DAP UI" },
+    { "<leader>de", "<cmd>lua require('dapui').eval()<CR>",            desc = "Evaluate DAP expressions" },
+    { "<leader>dp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", desc = "Toggle breakpoint" },
+    { "<leader>dc", "<cmd>lua require('dap').continue()<CR>",          desc = "Continue execution" },
+    { "<leader>di", "<cmd>lua require('dap').step_into()<CR>",         desc = "Step into" },
+    { "<leader>do", "<cmd>lua require('dap').step_over()<CR>",         desc = "Step over" },
+    { "<leader>dO", "<cmd>lua require('dap').step_out()<CR>",          desc = "Step out" },
+    { "<leader>dP", "<cmd>lua require('dap').pause()<CR>",             desc = "Pause execution" },
+    { "<leader>dt", "<cmd>lua require('dap').terminate()<CR>",         desc = "Terminate DAP session" },
+  },
+  config = function()
+    local dap = require('dap')
+
+    local dapui = require("dapui")
+    dapui.setup {
+      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+      controls = {
+        icons = {
+          pause = '⏸',
+          play = '▶',
+          step_into = '⏎',
+          step_over = '⏭',
+          step_out = '⏮',
+          step_back = 'b',
+          run_last = '▶▶',
+          terminate = '⏹',
+          disconnect = '⏏',
+        },
+      },
+    }
+
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+      dapui.open({})
+    end
+    dap.listeners.before.event_terminated["dapui_config"] = function()
+      dapui.close({})
+    end
+    dap.listeners.before.event_exited["dapui_config"] = function()
+      dapui.close({})
+    end
+
+    dap.adapters.gdb = {
+      type = "executable",
+      command = "gdb",
+      args = { "-i", "dap" }
+    }
+    dap.configurations.c = {
+      {
+        name = "Launch",
+        type = "gdb",
+        request = "launch",
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = "${workspaceFolder}",
+        stopAtBeginningOfMainSubprogram = false,
+        args = function()
+          local args_string = vim.fn.input('Arguments: ')
+          return vim.split(args_string, " ")
+        end,
+      },
+    }
+
+    dap.configurations.cpp = dap.configurations.c
+    dap.configurations.rust = dap.configurations.c
+  end,
 }
