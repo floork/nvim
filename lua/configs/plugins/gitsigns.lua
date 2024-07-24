@@ -12,6 +12,7 @@ return {
   keys = {
     { "<leader>gb", "<CMD>Gitsigns blame<cr>", desc = "Git blame" }
   },
+  lazy = false,
   config = function(_, opts)
     local gs = require("gitsigns")
 
