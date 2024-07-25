@@ -21,20 +21,9 @@ return {
       end
 
       local servers = {
-        html = {},
-        tsserver = {
-          init_options = {
-            plugins = {
-              {
-                name = '@vue/typescript-plugin',
-                languages = { 'vue' },
-              },
-            },
-          },
-        },
-        pyright = {},
+        bashls = {},
         clangd = {},
-        neocmake = {},
+        dockerls = {},
         gopls = {
           experimentalPostfixCompletions = true,
           analyses = {
@@ -43,19 +32,8 @@ return {
           },
           staticcheck = true,
         },
-        bashls = {},
-        dockerls = {},
-        rust_analyzer = {},
-        nil_ls = {},
-        volar = {
-          init_options = {
-            vue = {
-              hybridMode = false,
-            },
-          },
-        },
+        html = {},
         jsonls = {},
-        yamlls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -84,6 +62,28 @@ return {
             },
           },
         },
+        neocmake = {},
+        nil_ls = {},
+        pyright = {},
+        rust_analyzer = {},
+        tsserver = {
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                languages = { 'vue' },
+              },
+            },
+          },
+        },
+        volar = {
+          init_options = {
+            vue = {
+              hybridMode = false,
+            },
+          },
+        },
+        yamlls = {},
       }
 
       local mason = require("mason")
