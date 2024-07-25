@@ -22,6 +22,16 @@ return {
 
       local servers = {
         html = {},
+        tsserver = {
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                languages = { 'vue' },
+              },
+            },
+          },
+        },
         pyright = {},
         clangd = {},
         neocmake = {},
@@ -38,7 +48,11 @@ return {
         rust_analyzer = {},
         nil_ls = {},
         volar = {
-          filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+          init_options = {
+            vue = {
+              hybridMode = false,
+            },
+          },
         },
         jsonls = {},
         yamlls = {},
@@ -71,6 +85,7 @@ return {
           },
         },
       }
+
       local mason = require("mason")
       mason.setup({
         ui = {
