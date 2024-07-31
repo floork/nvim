@@ -64,6 +64,8 @@ return {
         stopAtBeginningOfMainSubprogram = false,
         args = function()
           local args_string = vim.fn.input('Arguments: ')
+          -- Expand the tilde (~) to the home directory
+          args_string = string.gsub(args_string, "^~", vim.fn.expand("$HOME"))
           return vim.split(args_string, " ")
         end,
       },
