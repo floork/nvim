@@ -35,7 +35,7 @@ return {
         nix = { "nixfmt" },                                       -- Nix formatter (nixfmt)
         python = { "isort", "black" },                            -- Python formatters (isort, black)
         rust = { "rust_analyzer" },                               -- Rust formatter (rustfmt)
-        toml = { "prettier" },                                    -- TOML formatter (prettier)
+        toml = { "taplo" },                                       -- TOML formatter (prettier)
         yml = { "prettier" },                                     -- YAML formatter (prettier)
       },
       format_on_save = {
