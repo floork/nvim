@@ -26,6 +26,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
     map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
     map("K", vim.lsp.buf.hover, "Hover Documentation")
+    local types = {
+      ["c"] = true,
+      ["C"] = true,
+      ["cc"] = true,
+      ["cpp"] = true,
+      ["CPP"] = true,
+      ["c++"] = true,
+      ["cp"] = true,
+      ["cxx"] = true,
+      ["hpp"] = true,
+      ["h"] = true,
+      ["hp"] = true,
+      ["hxx"] = true,
+      ["h++"] = true,
+    }
+    if types[vim.bo.filetype] then
+      map("L", "<CMD>ClangdShowSymbolInfo<CR>", "Show symbol info")
+    end
     local client = vim.lsp.get_client_by_id(event.data.client_id)
     if client and client.server_capabilities.documentHighlightProvider then
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
