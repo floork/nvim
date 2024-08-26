@@ -6,7 +6,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/nvim-cmp",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
-      -- { "j-hui/fidget.nvim", opts = {} }, -- for testing purposes
+      { "j-hui/fidget.nvim", opts = {} },
     },
     config = function()
       -- used to enable autocompletion (assign to every lsp server config)
