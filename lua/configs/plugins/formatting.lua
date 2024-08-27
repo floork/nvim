@@ -2,7 +2,7 @@
 local function clang_format_command()
   local handle = io.popen('test -f .clang-format && echo "found" || echo "not found"')
   if handle == nil then
-    return { "-style=Google" }
+    return { "-style=llvm" }
   end
   local result = handle:read("*a"):match("^%s*(.-)%s*$")
   handle:close()
@@ -10,7 +10,7 @@ local function clang_format_command()
   if result == "found" then
     return { "-style=file" }
   else
-    return { "-style=Google" }
+    return { "-style=llvm" }
   end
 end
 
