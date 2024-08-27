@@ -1,3 +1,19 @@
+-- Lua function to check if a `.clang-format` file exists
+local function clang_format_command()
+  local handle = io.popen('test -f .clang-format && echo "found" || echo "not found"')
+  if handle == nil then
+    return { "-style=Google" }
+  end
+  local result = handle:read("*a"):match("^%s*(.-)%s*$")
+  handle:close()
+
+  if result == "found" then
+    return { "-style=file" }
+  else
+    return { "-style=Google" }
+  end
+end
+
 return {
   "stevearc/conform.nvim",
   event = { "BufReadPre", "BufNewFile" },
@@ -53,7 +69,7 @@ return {
 
     conform.formatters.my_cpp = {
       command = "clang-format",
-      args = { "-style=Google" },
+      args = clang_format_command(),
       stdin = true,
     }
 
