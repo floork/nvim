@@ -7,6 +7,7 @@ local keymap = vim.keymap
 
 -- Text operations
 keymap.set("n", "x", '"_x', { desc = "Delete without yanking", noremap = true, silent = true })
+keymap.set("v", "d", '"_x', { desc = "Delete without yanking", noremap = true, silent = true })
 
 -- Search and replace
 keymap.set(
