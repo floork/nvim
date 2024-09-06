@@ -38,5 +38,19 @@ return {
         disable_prompt_on_change = true,
       })
     end,
+  },
+  {
+    "polarmutex/git-worktree.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    keys = {
+      { "<leader>gw", "<cmd>Telescope git_worktree<CR>",                     desc = "Open Worktree selection" },
+      { "<leader>gm", "<cmd>Telescope git_worktree create_git_worktree<CR>", desc = "Create Worktree " }
+    },
+    config = function()
+      require('telescope').load_extension('git_worktree')
+    end,
   }
 }
