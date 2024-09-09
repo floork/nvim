@@ -65,7 +65,31 @@ return {
         neocmake = {},
         nil_ls = {},
         pyright = {},
-        rust_analyzer = {},
+        rust_analyzer = {
+          imports = {
+            granularity = {
+              group = "module",
+            },
+            prefix = "self",
+          },
+          cargo = {
+            checkOnSave = {
+              command = "clippy",
+            },
+            buildScripts = {
+              enable = true,
+            },
+          },
+          procMacro = {
+            enable = true
+          },
+          inlayHints = {
+            enable = true,
+            showParameterNames = true,
+            parameterHintsPrefix = "<- ",
+            otherHintsPrefix = "=> ",
+          },
+        },
         tsserver = {
           init_options = {
             plugins = {
@@ -139,6 +163,15 @@ return {
             require("lspconfig")[server_name].setup(server)
           end,
         },
+      })
+
+      local lspconfig = require('lspconfig')
+
+      -- NOTE: you need to edit the file in at first to see the inlays
+      lspconfig.rust_analyzer.setup({
+        on_attach = function(client, bufnr)
+          vim.lsp.inlay_hint.enable(true, { bufnr })
+        end
       })
     end,
   },
