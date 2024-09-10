@@ -90,7 +90,7 @@ return {
             otherHintsPrefix = "=> ",
           },
         },
-        tsserver = {
+        ts_ls = {
           init_options = {
             plugins = {
               {
@@ -134,7 +134,7 @@ return {
         "pyright",
         "nil_ls",
         "rust_analyzer",
-        "tsserver",
+        "ts_ls",
         "volar",
         "yamlls",
         --
@@ -155,9 +155,6 @@ return {
       require("mason-lspconfig").setup({
         handlers = {
           function(server_name)
-            if server_name == "tsserver" then
-              server_name = "ts_ls"
-            end
             local server = servers[server_name] or {}
             server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
             require("lspconfig")[server_name].setup(server)
