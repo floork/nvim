@@ -68,10 +68,10 @@ return {
         -- Display truncated paths
         -- path_display = { "truncate " },
         -- Ignore specified file patterns
-        file_ignore_patterns = {
-          ".git/", "build/", "dist", "node_modules", ".cache", "%.o", "%.a",
-          "%.out", "%.class", "%.pdf", "%.mkv", "%.mp4", "%.zip"
-        },
+        -- file_ignore_patterns = {
+        --   ".git/", "build/", "dist", "node_modules", ".cache", "%.o", "%.a",
+        --   "%.out", "%.class", "%.pdf", "%.mkv", "%.mp4", "%.zip"
+        -- },
         -- Key mappings for insert mode
         mappings = {
           i = {
