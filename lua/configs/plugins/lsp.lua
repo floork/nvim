@@ -90,6 +90,7 @@ return {
             otherHintsPrefix = "=> ",
           },
         },
+        terraformls = {},
         ts_ls = {
           init_options = {
             plugins = {
@@ -134,6 +135,7 @@ return {
         "pyright",
         "nil_ls",
         "rust_analyzer",
+        "terraformls",
         "ts_ls",
         "volar",
         "yamlls",
