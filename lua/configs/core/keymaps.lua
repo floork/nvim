@@ -13,8 +13,6 @@ opts.desc = "Delete without yanking selected"
 keymap.set("v", "d", '"_x', opts)
 opts.desc = "Delete without yanking to end of line"
 keymap.set("n", "D", '"_D', opts)
-opts.desc = "Normal pasting"
-keymap.set("i", "<C-v>", '<C-r>+', opts)
 
 -- Search and replace
 opts.desc = "Search and replace"
