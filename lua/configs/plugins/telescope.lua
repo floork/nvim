@@ -3,7 +3,7 @@ return {
   branch = "0.1.x",
   keys = {
     {
-      "fl",
+      "<leader>fl",
       function()
         require("telescope.builtin").find_files({
           find_command = { 'fd', '--hidden', '--type', 'file' },
