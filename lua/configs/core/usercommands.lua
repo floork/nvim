@@ -13,3 +13,11 @@ vim.api.nvim_create_user_command(
   end,
   { nargs = 0, desc = "Save all files" }
 )
+
+vim.api.nvim_create_user_command(
+  "E",
+  function()
+    vim.cmd("e!")
+  end,
+  { nargs = 0, desc = "Save all files" }
+)
