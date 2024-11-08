@@ -128,6 +128,7 @@ return {
         "emmet_ls",
         "gopls",
         "html",
+        "hyprls",
         "jsonls",
         "lua_ls",
         "marksman",
