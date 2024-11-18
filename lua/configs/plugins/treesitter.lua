@@ -30,6 +30,7 @@ return {
         "vim",
         "dockerfile",
         "gitignore",
+        "gitcommit",
         "cpp",
         "rust",
         "toml",
