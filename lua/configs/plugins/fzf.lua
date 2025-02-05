@@ -29,12 +29,7 @@ return {
         -- Fuzzily search in the current buffer using grep_curbuf
         require("fzf-lua").grep_curbuf({
           winopts = {
-            -- omit or set split to false to use floating window by default
             split  = false,
-            height = 10,
-            width  = 0.7,
-            row    = 0.8,
-            col    = 0.5,
             border = "single",
           },
           grep = {
