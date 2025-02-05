@@ -1,0 +1,71 @@
+return {
+  "ibhagwan/fzf-lua",
+  keys = {
+    {
+      "<leader>fl",
+      function()
+        require("fzf-lua").files({ previewer = false })
+      end,
+      desc = "Fuzzy find files"
+    },
+    {
+      "<leader>fa",
+      function()
+        require("fzf-lua").files({ no_ignore = true, hidden = true, previewer = false })
+      end,
+      desc = "Fuzzy find files ignore local .fdignore"
+    },
+    {
+      "<leader>fs",
+      function()
+        -- Fuzzy find string (live grep) with hidden files enabled
+        require("fzf-lua").live_grep({ hidden = true })
+      end,
+      desc = "Fuzzy find string"
+    },
+    {
+      "<leader>/",
+      function()
+        -- Fuzzily search in the current buffer using grep_curbuf
+        require("fzf-lua").grep_curbuf({
+          winopts = {
+            -- omit or set split to false to use floating window by default
+            split  = false,
+            height = 10,
+            width  = 0.7,
+            row    = 0.8,
+            col    = 0.5,
+            border = "single",
+          },
+          grep = {
+            previewer = false,
+          },
+          previewer = false
+        })
+      end,
+      desc = "[/] Fuzzily search in current buffer"
+    },
+  },
+  config = function()
+    local fzf = require("fzf-lua")
+
+    fzf.setup({
+      "border-fused",
+      fzf_opts = {
+        ['--layout'] = 'default',
+      },
+      winopts = {
+        preview = {
+          wrap = true,
+        },
+      },
+      previewers = {},
+      defaults = {
+        git_icons = false,
+        file_icons = false,
+        color_icons = false,
+        formatter = "path.filename_first",
+      },
+    })
+  end
+}
