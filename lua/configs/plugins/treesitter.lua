@@ -13,7 +13,7 @@ return {
         enable = true,
         additional_vim_regex_highlighting = false,
       },
-      indent = { enable = true },
+      indent = { enable = false },
       autotag = {
         enable = true,
       },
@@ -37,7 +37,7 @@ return {
         "python",
       },
       auto_install = true,
-      sync_install = false,
+      sync_install = true,
       ignore_install = {},
       modules = {},
     })
