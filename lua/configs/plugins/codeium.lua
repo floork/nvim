@@ -1,15 +1,10 @@
 return {
-  "Exafunction/codeium.nvim",
+  "Exafunction/codeium.vim",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "hrsh7th/nvim-cmp",
   },
   config = function()
-    local codeium = require("codeium")
-    codeium.setup({
-      virtual_text = {
-        enabled = true
-      }
-    })
+    vim.g.codeium_enabled = false
   end
 }

@@ -4,6 +4,7 @@ return {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
     'nvim-neotest/nvim-nio',
+    'mfussenegger/nvim-dap-python',
   },
   keys = {
     { "<leader>du", "<cmd>lua require('dapui').toggle()<CR>",          desc = "Toggle DAP UI" },
@@ -73,5 +74,7 @@ return {
 
     dap.configurations.cpp = dap.configurations.c
     dap.configurations.rust = dap.configurations.c
+
+    require("dap-python").setup(vim.fn.getcwd() .. "/venv/bin/python")
   end,
 }

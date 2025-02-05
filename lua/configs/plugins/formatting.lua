@@ -22,7 +22,7 @@ return {
       "<leader>mf",
       function()
         require("conform").format({
-          lsp_format = "fallback",
+     lsp_format = "fallback",
           async = false,
           timeout_ms = 1000,
         })

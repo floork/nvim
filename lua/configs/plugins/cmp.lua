@@ -4,7 +4,6 @@ return {
   dependencies = {
     "hrsh7th/cmp-buffer",   -- source for text in buffer
     "hrsh7th/cmp-nvim-lsp", -- source for lsp
-    "Exafunction/codeium.nvim",
   },
   config = function()
     local cmp = require("cmp")
@@ -28,7 +27,6 @@ return {
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "buffer" }, -- text within current buffer
-        { name = "codeium" }
       }),
     })
   end,
