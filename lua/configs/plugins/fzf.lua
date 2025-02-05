@@ -40,6 +40,13 @@ return {
       end,
       desc = "[/] Fuzzily search in current buffer"
     },
+    {
+      "<leader>xx",
+      function()
+        require("fzf-lua").diagnostics_workspace()
+      end,
+      desc = "Fuzzy find diagnostics in workspace"
+    }
   },
   config = function()
     local fzf = require("fzf-lua")
