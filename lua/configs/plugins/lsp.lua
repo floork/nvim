@@ -8,6 +8,7 @@ return {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       { "j-hui/fidget.nvim", opts = {}, }
     },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       -- used to enable autocompletion (assign to every lsp server config)
       local capabilities = vim.lsp.protocol.make_client_capabilities()
