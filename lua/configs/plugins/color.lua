@@ -22,6 +22,9 @@ local function set_rose_pine()
           transparency = true,
         },
       })
+
+      set_colorscheme("rose-pine")
+      ColorMyPencil("rose-pine")
     end,
   }
 end
@@ -45,7 +48,10 @@ local function set_tokyonight()
           sidebars = "transparent", -- style for sidebars, see below
           floats = "transparent",   -- style for floating windows
         },
+
       })
+      set_colorscheme("tokyonight")
+      ColorMyPencil("tokyonight")
     end
   }
 end
@@ -57,27 +63,34 @@ local function set_gruvbox()
       require("gruvbox").setup({
         transparent_mode = true,
       })
+
+      set_colorscheme("gruvbox")
+      ColorMyPencil("gruvbox")
     end,
   }
 end
 
 local function set_color(color)
-  set_colorscheme(color)
-  ColorMyPencil(color)
+  local out = {}
 
   if color == "rose-pine" then
-    return set_rose_pine()
+    out = set_rose_pine()
   end
 
   if color == "tokyonight" then
-    return set_tokyonight()
+    out = set_tokyonight()
   end
 
   if color == "gruvbox" then
-    return set_gruvbox()
+    out = set_gruvbox()
   end
 
-  return {}
+  if color ~= "gruvbox" and color ~= "tokyonight" and color ~= "rose-pine" then
+    set_colorscheme(color)
+    ColorMyPencil(color)
+  end
+
+  return out
 end
 
 
