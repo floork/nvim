@@ -64,7 +64,7 @@ end
 
 -- Main function to choose and apply the desired color scheme.
 local function set_color(color)
-  local out = nil
+  local out = {}
   if color == "rose-pine" then
     out = set_rose_pine()
   elseif color == "tokyonight" then
