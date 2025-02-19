@@ -2,61 +2,54 @@ local function set_colorscheme(name)
   vim.cmd("colorscheme " .. name)
 end
 
-function ColorMyPencil(color)
-  color = color or "rose-pine"
-  vim.cmd.colorscheme(color)
-
-  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-  vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-  vim.api.nvim_set_hl(0, "DiffChange", { bg = "none" })
-  vim.api.nvim_set_hl(0, "WinSeparator", { bg = "none" })
+local function set_highlights()
+  local groups = { "Normal", "NormalFloat", "SignColumn", "DiffChange", "WinSeparator" }
+  for _, group in ipairs(groups) do
+    vim.api.nvim_set_hl(0, group, { bg = "none" })
+  end
   vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#3c3836" })
 end
 
+local function apply_theme(color)
+  set_colorscheme(color)
+  set_highlights()
+end
+
+-- Configuration for rose-pine theme.
 local function set_rose_pine()
   return {
     "rose-pine/neovim",
     config = function()
       require("rose-pine").setup({
-        styles = {
-          transparency = true,
-        },
+        styles = { transparency = true },
       })
-
-      set_colorscheme("rose-pine")
-      ColorMyPencil("rose-pine")
+      apply_theme("rose-pine")
     end,
   }
 end
 
+-- Configuration for tokyonight theme.
 local function set_tokyonight()
   return {
     "folke/tokyonight.nvim",
     config = function()
       require("tokyonight").setup({
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        style = "storm",        -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-        transparent = true,     -- Enable this to disable setting the background color
-        terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+        style = "storm",
+        transparent = true,
+        terminal_colors = true,
         styles = {
-          -- Style to be applied to different syntax groups
-          -- Value is any valid attr-list value for `:help nvim_set_hl`
           comments = { italic = false },
           keywords = { italic = false },
-          -- Background styles. Can be "dark", "transparent" or "normal"
-          sidebars = "transparent", -- style for sidebars, see below
-          floats = "transparent",   -- style for floating windows
+          sidebars = "transparent",
+          floats = "transparent",
         },
-
       })
-      set_colorscheme("tokyonight")
-      ColorMyPencil("tokyonight")
-    end
+      apply_theme("tokyonight")
+    end,
   }
 end
 
+-- Configuration for gruvbox theme.
 local function set_gruvbox()
   return {
     "ellisonleao/gruvbox.nvim",
@@ -64,35 +57,36 @@ local function set_gruvbox()
       require("gruvbox").setup({
         transparent_mode = true,
       })
-
-      set_colorscheme("gruvbox")
-      ColorMyPencil("gruvbox")
+      apply_theme("gruvbox")
     end,
   }
 end
 
+-- Main function to choose and apply the desired color scheme.
 local function set_color(color)
-  local out = {}
-
+  local out = nil
   if color == "rose-pine" then
     out = set_rose_pine()
-  end
-
-  if color == "tokyonight" then
+  elseif color == "tokyonight" then
     out = set_tokyonight()
-  end
-
-  if color == "gruvbox" then
+  elseif color == "gruvbox" then
     out = set_gruvbox()
+  else
+    apply_theme(color)
   end
 
-  if color ~= "gruvbox" and color ~= "tokyonight" and color ~= "rose-pine" then
-    set_colorscheme(color)
-    ColorMyPencil(color)
+  if color == "retrobox" then
+    vim.api.nvim_set_hl(0, "NeogitDiffAdd", {
+      fg = "#000000",
+      bg = "#A9DC76" -- bright green
+    })
+    vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", {
+      fg = "#000000",
+      bg = "#A9DC76" -- bright green
+    })
   end
 
   return out
 end
-
 
 return set_color("retrobox")
