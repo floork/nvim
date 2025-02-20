@@ -7,7 +7,15 @@ return {
   config = function()
     require("codeium").setup({
       virtual_text = {
-        enabled = true
+        enabled = true,
+        key_bindings = {
+          accept = "<S-Tab>",
+          accept_word = false,
+          accept_line = false,
+          next = "<C-n>",
+          prev = "<C-p>",
+          dismiss = "<C-e>",
+        }
       }
     })
 
