@@ -6,7 +6,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/nvim-cmp",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
-      { "j-hui/fidget.nvim", opts = {}, }
+      -- { "j-hui/fidget.nvim", opts = {}, }
     },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
