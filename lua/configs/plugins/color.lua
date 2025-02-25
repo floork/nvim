@@ -84,6 +84,14 @@ local function set_color(color)
       fg = "#000000",
       bg = "#A9DC76" -- bright green
     })
+    vim.api.nvim_set_hl(0, "NeogitDiffDeletions", {
+      fg = "#000000",
+      bg = "#CC6666" -- bright red
+    })
+    vim.api.nvim_set_hl(0, "NeogitDiffDeleteCursor", {
+      fg = "#000000",
+      bg = "#CC6666" -- bright red
+    })
   end
 
   return out
