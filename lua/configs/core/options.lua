@@ -45,7 +45,7 @@ opt.updatetime = 50
 opt.scrolloff = 8
 
 -- Spellcheck
-opt.spelllang = "en_us"
+opt.spelllang = { "en", "de" }
 opt.spell = true
 
 -- Folding
