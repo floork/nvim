@@ -22,7 +22,7 @@ return {
       "<leader>mf",
       function()
         require("conform").format({
-     lsp_format = "fallback",
+          lsp_format = "fallback",
           async = false,
           timeout_ms = 1000,
         })
@@ -33,6 +33,14 @@ return {
   },
   config = function()
     local conform = require("conform")
+
+    -- Define the tex formatter without a trailing space in the key
+    conform.formatters.tex_fmt = {
+      inherit = false,
+      command = "tex-fmt",
+      args = { "--nowrap", "--stdin" },
+      stdin = true,
+    }
 
     conform.setup({
       formatters_by_ft = {
@@ -51,6 +59,7 @@ return {
         nix = { "nixfmt" },                                       -- Nix formatter (nixfmt)
         python = { "isort", "black" },                            -- Python formatters (isort, black)
         rust = { "rust_analyzer" },                               -- Rust formatter (rustfmt)
+        tex = { "tex_fmt" },                                      -- LaTeX formatter (tex-fmt)
         toml = { "taplo" },                                       -- TOML formatter (prettier)
         yml = { "prettier" },                                     -- YAML formatter (prettier)
       },

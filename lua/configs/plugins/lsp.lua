@@ -138,6 +138,7 @@ return {
         "nil_ls",
         "rust_analyzer",
         "terraformls",
+        "texlab",
         "ts_ls",
         "volar",
         "yamlls",
@@ -153,6 +154,7 @@ return {
         "pylint",       -- Python code linter
         "nixpkgs-fmt",  -- Nix code formatter
         "stylua",       -- Lua code formatter
+        "tex-fmt",      -- LaTeX code formatter
       })
       require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
