@@ -46,6 +46,13 @@ return {
         require("fzf-lua").diagnostics_workspace()
       end,
       desc = "Fuzzy find diagnostics in workspace"
+    },
+    {
+      "z=",
+      function()
+        require("fzf-lua").spell_suggest()
+      end,
+      desc = "Fuzzy find spell suggestions"
     }
   },
   config = function()
