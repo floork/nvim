@@ -21,13 +21,13 @@ local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
 opts.desc = "Navigate left in nvim or tmux"
-keymap.set('n', '<C-h>', ':lua navigate("h")<CR>', opts)
+keymap.set('n', '<C-h>', '<Cmd>lua navigate("h")<CR>', opts)
 
 opts.desc = "Navigate down in nvim or tmux"
-keymap.set('n', '<C-j>', ':lua navigate("j")<CR>', opts)
+keymap.set('n', '<C-j>', '<Cmd>lua navigate("j")<CR>', opts)
 
 opts.desc = "Navigate up in nvim or tmux"
-keymap.set('n', '<C-k>', ':lua navigate("k")<CR>', opts)
+keymap.set('n', '<C-k>', '<Cmd>lua navigate("k")<CR>', opts)
 
 opts.desc = "Navigate left in nvim or tmux"
-keymap.set('n', '<C-l>', ':lua navigate("l")<CR>', opts)
+keymap.set('n', '<C-l>', '<Cmd>lua navigate("l")<CR>', opts)
