@@ -15,51 +15,10 @@ local function apply_theme(color)
   set_highlights()
 end
 
--- Configuration for rose-pine theme.
-local function set_rose_pine()
-  return {
-    "rose-pine/neovim",
-    config = function()
-      require("rose-pine").setup({
-        styles = { transparency = true },
-      })
-      apply_theme("rose-pine")
-    end,
-  }
-end
-
--- Configuration for tokyonight theme.
-local function set_tokyonight()
-  return {
-    "folke/tokyonight.nvim",
-    config = function()
-      require("tokyonight").setup({
-        style = "storm",
-        transparent = true,
-        terminal_colors = true,
-        styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
-          sidebars = "transparent",
-          floats = "transparent",
-        },
-      })
-      apply_theme("tokyonight")
-    end,
-  }
-end
-
--- Configuration for gruvbox theme.
-local function set_gruvbox()
-  return {
-    "ellisonleao/gruvbox.nvim",
-    config = function()
-      require("gruvbox").setup({
-        transparent_mode = true,
-      })
-      apply_theme("gruvbox")
-    end,
-  }
+-- Configuration for classic_retro theme.
+local function set_classic_retro()
+  require("configs.core.custom.retro_classic").setup()
+  set_highlights()
 end
 
 -- Main function to choose and apply the desired color scheme.
@@ -71,6 +30,9 @@ local function set_color(color)
     out = set_tokyonight()
   elseif color == "gruvbox" then
     out = set_gruvbox()
+  elseif color == "classic_retro" then
+    out = set_classic_retro()
+    return {}
   else
     apply_theme(color)
   end
@@ -97,4 +59,4 @@ local function set_color(color)
   return out
 end
 
-return set_color("retrobox")
+return set_color("classic_retro")
