@@ -7,6 +7,6 @@
     "cast-local-type",
     "missing-parameter"
   ],
-  "Lua.workspace.checkThirdParty": false
+  "Lua.workspace.checkThirdParty": false,
+  "Lua.diagnostics.globals": ["vim"]
 }
-
