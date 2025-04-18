@@ -1,3 +1,7 @@
+if not _G.USE_BUILDINS then
+  return
+end
+
 -- Set completion options
 vim.o.completeopt = "menu,menuone,noselect,noinsert,popup"
 

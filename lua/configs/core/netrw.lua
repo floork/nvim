@@ -1,3 +1,9 @@
+if not _G.USE_BUILDINS then
+  vim.g.loaded_netrw = 1
+  vim.g.loaded_netrwPlugin = 1
+  return
+end
+
 -- netrw
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 15
