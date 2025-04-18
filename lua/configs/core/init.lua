@@ -6,6 +6,7 @@ require("configs.core.netrw")
 require("configs.core.custom")
 require("configs.core.color")
 require("configs.core.lsp")
+require("configs.core.autocomplete")
 
 vim.filetype.add({
   filename = {
