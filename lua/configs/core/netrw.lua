@@ -1,4 +1,4 @@
-if not _G.USE_BUILDINS then
+if not _G.USE_NETRW then
   vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1
   return

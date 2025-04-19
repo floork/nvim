@@ -1,7 +1,3 @@
-if _G.USE_BUILDINS then
-  return {}
-end
-
 return {
   'saghen/blink.cmp',
   version = '1.*',

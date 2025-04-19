@@ -1,9 +1,3 @@
-if _G.USE_BUILDINS then
-  -- Add this to your init.lua
-  vim.keymap.set("n", "<leader>fl", ":FileSearch<CR>", { noremap = true, silent = true })
-  return {}
-end
-
 return {
   "ibhagwan/fzf-lua",
   keys = {

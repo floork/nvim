@@ -1,9 +1,3 @@
-if _G.USE_BUILDINS then
-  vim.o.syntax = "enable"
-  return {}
-end
-
-
 return {
   "nvim-treesitter/nvim-treesitter",
   event = { "BufReadPre", "BufNewFile" },
