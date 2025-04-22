@@ -1,20 +1,30 @@
 _G.USE_BUILDINS = false
 _G.USE_NETRW = false
 
-require("configs.core")
+local function safe_require(mod)
+  local ok, module_or_err = pcall(require, mod)
+  if not ok then
+    vim.notify("Failed to load " .. mod .. ": " .. module_or_err, vim.log.levels.ERROR)
+    return nil
+  end
+  return module_or_err
+end
+
+safe_require("configs.core")
+
 
 if _G.USE_BUILDINS then
-  require("configs.core.autocomplete")
+  safe_require("configs.core.autocomplete")
   vim.o.syntax = "enable"
-  local file_search = require('configs.core.custom.file_open')
+
+  local file_search = safe_require("configs.core.custom.file_open")
+
+  if not file_search or type(file_search.setup) ~= "function" then
+    vim.notify("file_search module is invalid or missing setup()", vim.log.levels.WARN)
+    return
+  end
+
   file_search.setup({
-    -- Optional configuration
-    -- width = 0.8,
-    -- height = 0.8,
-    -- prompt_prefix = "> ",
-    -- use_fd = false,                                                                     -- Set to true to use fd by default
-    -- fd_command = "fd --type f --color never",                                           -- Customize base fd command
-    -- find_command = [[find . -type f -not -path '*/\.*' -not -path '*/node_modules/*']], -- Customize base find command
     excludes = {
       ".git",
       "node_modules",
@@ -27,15 +37,29 @@ if _G.USE_BUILDINS then
   })
 
   vim.keymap.set("n", "<leader>fl", function()
-    file_search.search()
+    if file_search.search then
+      file_search.search()
+    else
+      vim.notify("file_search.search() not found", vim.log.levels.ERROR)
+    end
   end, { desc = "Find files" })
 
   vim.keymap.set("n", "<leader>fa", function()
-    file_search.search_with_command("find . -type f")
-  end, { desc = "find all files" })
+    if file_search.search_with_command then
+      file_search.search_with_command("find . -type f")
+    else
+      vim.notify("file_search.search_with_command() not found", vim.log.levels.ERROR)
+    end
+  end, { desc = "Find all files" })
 
   vim.keymap.set('n', '<leader>xx', function()
-    require("configs.core.custom.diagnostic").show_diagnostics()
+    local diag = safe_require("configs.core.custom.diagnostic").show_diagnostics()
+
+    if diag == nil then
+      return
+    end
+
+    diag.show_diagnostics()
   end, {
     noremap = true,
     silent = true,
@@ -45,5 +69,4 @@ if _G.USE_BUILDINS then
   return
 end
 
-
-require("configs.lazy")
+safe_require("configs.lazy")
