@@ -17,7 +17,7 @@ end
 
 -- Configuration for classic_retro theme.
 local function set_classic_retro()
-  require("configs.core.custom.retro_classic").setup()
+  require("configs.core.custom.colorscheme.retro-classic.retro_classic").setup()
   set_highlights()
 end
 
