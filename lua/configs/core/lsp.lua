@@ -93,13 +93,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       })
     end
 
-    map("gR", require("fzf-lua").lsp_references, "[G]oto [R]eferences")
-    map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-    map("gd", require("fzf-lua").lsp_definitions, "[G]oto [D]efinition")
     map("gb", "<cmd> pop<CR>", "[G]oto [B]uffer")
-    map("gI", require("fzf-lua").lsp_implementations, "[G]oto [I]mplementation")
-    map("<leader>DD", require("fzf-lua").lsp_typedefs, "Type [D]efinition")
-    map("<leader>Ds", require("fzf-lua").lsp_document_symbols, "[D]ocument [S]ymbols")
     map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
     map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
     map("K", vim.lsp.buf.hover, "Hover Documentation")
@@ -187,4 +181,16 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
       end
     end
   end,
+})
+
+vim.api.nvim_create_user_command('LspRestart', function()
+  vim.notify('Currently TO BE IMPLEMENTED', vim.log.levels.WARN, { title = 'LSP Config Error' })
+end, {
+  desc = 'Currently TO BE IMPLEMENTED',
+})
+
+vim.api.nvim_create_user_command("LspInfo", function()
+  vim.api.nvim_command("checkhealth vim.lsp")
+end, {
+  desc = 'Print LSP clients for the current buffer',
 })

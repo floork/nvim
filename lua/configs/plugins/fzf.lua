@@ -1,3 +1,41 @@
+local fzf_lsp_augroup =
+    vim.api.nvim_create_augroup("FzfLuaLspGroup", { clear = true })
+
+-- Set fzf-lua specific LSP keymaps when LSP attaches
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = fzf_lsp_augroup,
+  desc = "Setup fzf-lua LSP keymaps",
+  callback = function(args)
+    local bufnr = args.buf
+
+    -- Ensure fzf-lua is available before trying to use it
+    local fzf_lua_ok, fzf_lua = pcall(require, "fzf-lua")
+    if not fzf_lua_ok then
+      -- Optionally notify if fzf-lua is missing
+      -- vim.notify("fzf-lua not found. Skipping fzf-lua LSP map setup for buffer " .. bufnr, vim.log.levels.WARN)
+      return
+    end
+
+    -- Define a buffer-local mapping helper within this function's scope
+    local map = function(keys, func, desc)
+      vim.keymap.set("n", keys, func, {
+        buffer = bufnr,
+        desc = "LSP (fzf-lua): " .. desc,         -- Add a clear description
+      })
+    end
+
+    -- Set the fzf-lua dependent LSP maps
+    map("gR", fzf_lua.lsp_references, "[G]oto [R]eferences")
+    map("gd", fzf_lua.lsp_definitions, "[G]oto [D]efinition")
+    map("gI", fzf_lua.lsp_implementations, "[G]oto [I]mplementation")
+    map("<leader>DD", fzf_lua.lsp_typedefs, "Type [D]efinition")
+    map("<leader>Ds", fzf_lua.lsp_document_symbols, "[D]ocument [S]ymbols")
+
+    -- Add any other fzf-lua specific LSP maps here
+  end,
+})
+
+
 return {
   "ibhagwan/fzf-lua",
   keys = {
