@@ -1,0 +1,3 @@
+[submodule "lua/configs/core/custom/colorscheme"]
+    path = lua/configs/core/custom/colorscheme
+    url = https://github.com/floork/colorscheme.git
