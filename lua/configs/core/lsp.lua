@@ -14,12 +14,26 @@ local pending_lsp_ready_notify = {} -- Key: bufnr, Value: client_id (or true)
 -- Enable inlay hints
 vim.lsp.inlay_hint.enable(true)
 
--- Configure diagnostics
+-- start in virtual-text mode
+local showing_virtual_lines = false
+
 vim.diagnostic.config({
   signs = { Error = "X ", Warn = "! ", Hint = "h ", Info = "i " },
-  virtual_lines = { current_line = true },
+  virtual_lines = false,
   workspace = { enable = true },
 })
+
+local function ToggleDiagnosticsDisplay()
+  showing_virtual_lines = not showing_virtual_lines
+  vim.diagnostic.config({
+    virtual_lines = showing_virtual_lines and { current_line = showing_virtual_lines },
+  })
+end
+
+vim.keymap.set(
+  "n", "<leader>vl", ToggleDiagnosticsDisplay,
+  { desc = "Toggle diagnostics display" }
+)
 
 -- Global LSP capabilities configuration
 vim.lsp.config("*", {
