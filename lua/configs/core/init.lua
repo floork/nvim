@@ -21,4 +21,9 @@ vim.filetype.add({
     ["gitconfig"] = ".gitconfig",
     ["DOCKERFILE"] = "dockerfile",
   },
+  pattern = {
+    ["%.tex$"] = "tex",
+  },
 })
+
+vim.g.tex_flavor = "latex"

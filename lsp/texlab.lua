@@ -1,4 +1,4 @@
 return {
   cmd = { "texlab" },
-  filetypes = { "tex" },
+  filetypes = { "tex", "plaintex" },
 }
