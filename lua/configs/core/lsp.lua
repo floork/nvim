@@ -26,7 +26,7 @@ vim.diagnostic.config({
 local function ToggleDiagnosticsDisplay()
   showing_virtual_lines = not showing_virtual_lines
   vim.diagnostic.config({
-    virtual_lines = showing_virtual_lines and { current_line = showing_virtual_lines },
+    virtual_lines = showing_virtual_lines,
   })
 end
 
