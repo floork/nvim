@@ -1,7 +1,6 @@
 local modules = {
   "configs.core.custom.build",
   "configs.core.custom.tmux",
-  "configs.core.custom.file_open"
 }
 
 for _, mod in ipairs(modules) do

@@ -53,5 +53,11 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 9999
 
+-- find
+vim.opt.path:append("**")
+vim.opt.wildmenu = true
+vim.opt.wildmode = { "longest:full", "full" }
+
+
 -- Clipboard
 opt.clipboard:append("unnamedplus") -- use system clipboard as default register
