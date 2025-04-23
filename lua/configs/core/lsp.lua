@@ -85,38 +85,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
     pending_lsp_ready_notify[bufnr][client_id] = true -- Mark this client as pending for this buffer
 
-    -- --- LSP Keymap Setup ---
-    local map = function(keys, func, desc)
-      vim.keymap.set("n", keys, func, {
-        buffer = bufnr,
-        desc = "LSP: " .. desc,
-      })
-    end
-
-    map("gb", "<cmd> pop<CR>", "[G]oto [B]uffer")
-    map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-    map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-    map("K", vim.lsp.buf.hover, "Hover Documentation")
-
-    local types = {
-      ["c"] = true,
-      ["C"] = true,
-      ["cc"] = true,
-      ["cpp"] = true,
-      ["CPP"] = true,
-      ["c++"] = true,
-      ["cp"] = true,
-      ["cxx"] = true,
-      ["hpp"] = true,
-      ["h"] = true,
-      ["hp"] = true,
-      ["hxx"] = true,
-      ["h++"] = true,
-    }
-    if types[vim.bo[bufnr].filetype] then
-      map("L", "<CMD>ClangdShowSymbolInfo<CR>", "Show symbol info")
-    end
-
     if client.server_capabilities.documentHighlightProvider then
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         group = lsp_augroup, -- Assign to the group
@@ -132,7 +100,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         callback = vim.lsp.buf.clear_references,
       })
     end
-    -- --- End LSP Keymap Setup ---
   end,
 })
 
