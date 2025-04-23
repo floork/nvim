@@ -1,5 +1,5 @@
 -- Set completion options
-vim.o.completeopt = "menu,menuone,noselect,noinsert,popup"
+vim.o.completeopt = "menu,menuone,noselect,noinsert,popup,fuzzy"
 
 -- Define mappings for the popup menu navigation
 local pumMaps = {
