@@ -1,6 +1,7 @@
 return {
   'saghen/blink.cmp',
   version = '1.*',
+  dependencies = { 'Exafunction/windsurf.nvim', },
   opts = {
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
     -- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -24,7 +25,10 @@ return {
     signature = { enabled = true },
     completion = { documentation = { auto_show = false } },
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'windsurf' },
+      providers = {
+        windsurf = { name = 'Windsurf', module = 'codeium.blink', async = true },
+      },
     },
     fuzzy = { implementation = "prefer_rust_with_warning" }
   },
