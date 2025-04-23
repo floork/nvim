@@ -13,7 +13,7 @@ return {
     keys = {
       { "<leader>gb", "<CMD>Gitsigns blame<cr>", desc = "Git blame" }
     },
-    event = { "BufReadPre", "BufNewFile" },
+    lazy = false,
     config = function(_, opts)
       local gs = require("gitsigns")
 
