@@ -52,6 +52,7 @@ vim.lsp.enable({
   "clangd",
   "gopls",
   "html",
+  "hyprls",
   "jsonls",
   "luals",
   "neocmake",
