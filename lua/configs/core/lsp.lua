@@ -82,6 +82,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
       return
     end
 
+    -- Set up keybinding for 'gd' to go to definition
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
+
     local client = vim.lsp.get_client_by_id(client_id)
     if not client then
       vim.notify(
