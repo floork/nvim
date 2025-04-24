@@ -42,8 +42,3 @@ keymap.set("n", "<leader>ee", vim.cmd.Ex, opts)
 -- Readjust the Window size
 opts.desc = "Readjust the window size"
 keymap.set("n", "<leader>ww", "<cmd>wincmd =<CR>", opts)
-
--- quick find open
-vim.keymap.set("n", "<leader>tt", function()
-  vim.api.nvim_feedkeys(":find ", "n", false)
-end, { noremap = true, silent = true })
