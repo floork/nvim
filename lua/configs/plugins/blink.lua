@@ -22,7 +22,7 @@ return {
       -- Adjusts spacing to ensure icons are aligned
       nerd_font_variant = 'normal'
     },
-    signature = { enabled = true },
+    signature = { enabled = false },
     completion = { documentation = { auto_show = false } },
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer', 'windsurf' },
