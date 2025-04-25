@@ -8,7 +8,7 @@ return {
     require("codeium").setup({
       enable_cmp_source = false,
       virtual_text = {
-        enabled = false,
+        enabled = true,
         key_bindings = {
           accept = "<S-Tab>",
           accept_word = false,
