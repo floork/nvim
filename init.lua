@@ -12,6 +12,40 @@ end
 
 safe_require("configs.core")
 
+local format = safe_require("configs.core.custom.formatting")
+
+format.setup({
+  formatters_by_ft = {
+    bash = { "shfmt" },                                           -- Bash formatter (shfmt)
+    sh = { "shfmt" },                                             -- Shell formatter (shfmt)
+    zsh = { "shfmt" },                                            -- Zsh formatter (shfmt)
+    c = { "my_cpp" },                                             -- C formatter (clang-format)
+    cpp = { "my_cpp" },                                           -- C++ formatter (clang-format)
+    css = { "prettier" },                                         -- CSS formatter (prettier)
+    go = { "gofmt" },                                             -- Go formatter (gofmt)
+    html = { "prettier" },                                        -- HTML formatter (prettier)
+    javascript = { "prettier" },                                  -- JavaScript formatter (prettier)
+    json = { "prettier" },                                        -- JSON formatter (prettier)
+    lua = { "stylua --indent-width 2 --indent-type Spaces" },     -- Lua formatter (stylua)
+    markdown = { "prettier" },                                    -- Markdown formatter (prettier)
+    nix = { "nixfmt" },                                           -- Nix formatter (nixfmt)
+    python = { "isort", "black" },                                -- Python formatters (isort, black)
+    rust = { "rust_analyzer" },                                   -- Rust formatter (rustfmt)
+    tex = { "tex_fmt" },                                          -- LaTeX formatter (tex-fmt)
+    toml = { "taplo" },                                           -- TOML formatter (prettier)
+    yml = { "prettier" },                                         -- YAML formatter (prettier)
+  },
+  format_on_save = true,                                          -- or provide a function(bufnr) returning opts
+})
+
+vim.keymap.set({"n","v"}, "<leader>mf", function()
+  format.format({
+    lsp_fallback      = true,
+    async             = false,
+    override_disabled = true,    -- ignore FormatDisable
+  })
+end, { desc = "Format buffer or range" })
+
 
 if _G.USE_BUILDINS then
   safe_require("configs.core.autocomplete")
