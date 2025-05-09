@@ -1,21 +1,6 @@
 -- Set completion options
 vim.o.completeopt = "menu,menuone,noselect,noinsert,popup,fuzzy"
 
--- Define mappings for the popup menu navigation
-local pumMaps = {
-  ['<Tab>']   = '<C-n>',
-  ['<S-Tab>'] = '<C-p>',
-  ['<Down>']  = '<C-n>',
-  ['<Up>']    = '<C-p>',
-  ['<CR>']    = '<C-y>',
-}
-
-for insertKmap, pumKmap in pairs(pumMaps) do
-  vim.keymap.set('i', insertKmap, function()
-    return vim.fn.pumvisible() == 1 and pumKmap or insertKmap
-  end, { expr = true })
-end
-
 -- Autocompletion on LSP attach
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("configs-lsp-attach", { clear = true }),
