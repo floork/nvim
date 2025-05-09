@@ -6,7 +6,7 @@ local modules = {
   "configs.core.netrw",
   "configs.core.color",
   "configs.core.lsp",
-  "configs.core.custom"
+  "configs.core.plugins"
 }
 
 for _, mod in ipairs(modules) do
@@ -27,3 +27,7 @@ vim.filetype.add({
 })
 
 vim.g.tex_flavor = "latex"
+
+if _G.USE_BUILDINS then
+  vim.o.syntax = "enable"
+end

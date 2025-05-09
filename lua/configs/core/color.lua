@@ -17,7 +17,7 @@ end
 
 -- Configuration for classic_retro theme.
 local function set_classic_retro()
-  require("configs.core.custom.colorscheme.retro-classic.nvim").setup()
+  require("configs.core.colorscheme.retro-classic.nvim").setup()
   set_highlights()
 end
 
