@@ -21,6 +21,21 @@ local function set_classic_retro()
   set_highlights()
 end
 
+local function set_gruvbox()
+  set_colorscheme("gruvbox")
+  set_highlights()
+end
+
+local function set_tokyonight()
+  set_colorscheme("tokyonight")
+  set_highlights()
+end
+
+local function set_rose_pine()
+  set_colorscheme("rose-pine")
+  set_highlights()
+end
+
 -- Main function to choose and apply the desired color scheme.
 local function set_color(color)
   local out = {}
