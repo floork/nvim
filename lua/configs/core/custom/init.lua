@@ -1,5 +1,4 @@
 local modules = {
-  "configs.core.custom.build",
   "configs.core.custom.tmux",
 }
 
