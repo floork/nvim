@@ -1,28 +1,182 @@
+-- inspired by https://github.com/MariaSolOs/dotfiles/blob/main/.config/nvim/lua/lsp.lua
+
 -- Check Neovim version: require 0.11+ for this config
 local v = vim.version()
 if v.major == 0 and v.minor < 11 then
-  vim.notify(
-    "Neovim 0.11+ is required for this config. Aborting.",
-    vim.log.levels.WARN
-  )
+  vim.notify("Neovim 0.11+ is required for this config. Aborting.", vim.log.levels.WARN)
   return
 end
 
--- Keep track of buffers waiting for their first diagnostic update after LSP attach
-local pending_lsp_ready_notify = {} -- Key: bufnr, Value: client_id (or true)
+-- Removed the require('icons').diagnostics line.
+local methods = vim.lsp.protocol.Methods
 
--- Enable inlay hints
-vim.lsp.inlay_hint.enable(true)
+local M = {}
 
--- start in virtual-text mode
+-- Define the diagnostic signs directly using the characters you want.
+local diagnostic_signs = {
+  Error = "X", -- Using 'X' for Error
+  Warn = "!", -- Using '!' for Warn
+  Info = "+", -- Using '+' for Info (or adjust as needed)
+  Hint = "-", -- Using '-' for Hint (or adjust as needed)
+}
+
+-- Disable inlay hints initially (and enable if needed with my ToggleInlayHints command).
+vim.g.inlay_hints = false
+
+-- Added virtual lines toggle state
 local showing_virtual_lines = false
 
+--- Sets up LSP keymaps and autocommands for the given buffer.
+---@param client vim.lsp.Client
+---@param bufnr integer
+local function on_attach(client, bufnr)
+  ---@param lhs string
+  ---@param rhs string|function
+  ---@param desc string
+  ---@param mode? string|string[]
+  local function keymap(lhs, rhs, desc, mode)
+    mode = mode or "n"
+    vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+  end
+
+  keymap("[d", function()
+    vim.diagnostic.jump({ count = -1 })
+  end, "Previous diagnostic")
+  keymap("]d", function()
+    vim.diagnostic.jump({ count = 1 })
+  end, "Next diagnostic")
+  keymap("[e", function()
+    vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
+  end, "Previous error")
+  keymap("]e", function()
+    vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
+  end, "Next error")
+
+  if v.major == 0 and v.minor > 11 then
+    vim.lsp.document_color.enable(true, bufnr)
+    vim.notify("Please look at lsp.lua for vim.lsp.document_color.enable(true, bufnr)", vim.log.levels.WARN)
+  end
+
+  if client:supports_method(methods.textDocument_definition) then
+    keymap("gd", vim.lsp.buf.definition, "Go to definition")
+  end
+
+  keymap("gb", "<C-o>", "Go back in jump list")
+
+  if client:supports_method(methods.textDocument_documentHighlight) then
+    local under_cursor_highlights_group = vim.api.nvim_create_augroup("mariasolos/cursor_highlights", { clear = false })
+    vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
+      group = under_cursor_highlights_group,
+      desc = "Highlight references under the cursor",
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter", "BufLeave" }, {
+      group = under_cursor_highlights_group,
+      desc = "Clear highlight references",
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
+
+  if client:supports_method(methods.textDocument_inlayHint) then
+    local inlay_hints_group = vim.api.nvim_create_augroup("mariasolos/toggle_inlay_hints", { clear = false })
+
+    if vim.g.inlay_hints then
+      -- Initial inlay hint display.
+      -- Idk why but without the delay inlay hints aren't displayed at the very start.
+      vim.defer_fn(function()
+        local mode = vim.api.nvim_get_mode().mode
+        vim.lsp.inlay_hint.enable(mode == "n" or mode == "v", { bufnr = bufnr })
+      end, 500)
+    end
+
+    vim.api.nvim_create_autocmd("InsertEnter", {
+      group = inlay_hints_group,
+      desc = "Enable inlay hints",
+      buffer = bufnr,
+      callback = function()
+        if vim.g.inlay_hints then
+          vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+        end
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      group = inlay_hints_group,
+      desc = "Disable inlay hints",
+      buffer = bufnr,
+      callback = function()
+        if vim.g.inlay_hints then
+          vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        end
+      end,
+    })
+  end
+end
+
+-- Define the diagnostic signs using your specified characters.
+for severity, text in pairs(diagnostic_signs) do
+  local hl = "DiagnosticSign" .. severity:sub(1, 1) .. severity:sub(2):lower()
+  vim.fn.sign_define(hl, { text = text, texthl = hl })
+end
+
+-- Diagnostic configuration.
 vim.diagnostic.config({
-  signs = { Error = "X ", Warn = "! ", Hint = "h ", Info = "i " },
-  virtual_lines = false,
-  workspace = { enable = true },
+  virtual_text = {
+    prefix = "",
+    spacing = 2,
+    format = function(diagnostic)
+      -- Use shorter, nicer names for some sources:
+      local special_sources = {
+        ["Lua Diagnostics."] = "lua",
+        ["Lua Syntax Check."] = "lua",
+      }
+
+      -- Using a generic indicator or removing it based on your preference for virtual text.
+      local message = string.format(
+        "%s %s",
+        vim.diagnostic.severity[diagnostic.severity]:sub(1, 1), -- Use first letter of severity
+        special_sources[diagnostic.source] or diagnostic.source or ""
+      )
+      if diagnostic.code then
+        message = string.format("%s[%s]", message, diagnostic.code)
+      end
+
+      return message .. " "
+    end,
+  },
+  float = {
+    source = "if_many",
+    -- Show severity signs as prefixes in the float.
+    prefix = function(diag)
+      local level = vim.diagnostic.severity[diag.severity]
+      -- Using the local diagnostic_signs table for the float prefix.
+      local prefix = string.format(" %s ", diagnostic_signs[level])
+      return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
+    end,
+  },
+  -- Enable signs in the gutter using the defined signs.
+  signs = true,
+  -- Added virtual_lines configuration for toggling
+  virtual_lines = false, -- Start with virtual lines off
 })
 
+-- Keep the virtual text diagnostic handler override
+local show_handler = vim.diagnostic.handlers.virtual_text.show
+assert(show_handler)
+local hide_handler = vim.diagnostic.handlers.virtual_text.hide
+vim.diagnostic.handlers.virtual_text = {
+  show = function(ns, bufnr, diagnostics, opts)
+    table.sort(diagnostics, function(diag1, diag2)
+      return diag1.severity > diag2.severity
+    end)
+    return show_handler(ns, bufnr, diagnostics, opts)
+  end,
+  hide = hide_handler,
+}
+
+-- Added ToggleDiagnosticsDisplay function and keymap for virtual lines
 local function ToggleDiagnosticsDisplay()
   showing_virtual_lines = not showing_virtual_lines
   vim.diagnostic.config({
@@ -30,152 +184,65 @@ local function ToggleDiagnosticsDisplay()
   })
 end
 
-vim.keymap.set(
-  "n", "<leader>vl", ToggleDiagnosticsDisplay,
-  { desc = "Toggle diagnostics display" }
-)
+vim.keymap.set("n", "<leader>vl", ToggleDiagnosticsDisplay, { desc = "Toggle diagnostics display" })
 
--- Global LSP capabilities configuration
-vim.lsp.config("*", {
-  capabilities = {
-    textDocument = {
-      semanticTokens = {
-        multilineTokenSupport = true,
-      },
-    },
-  },
-})
+local hover = vim.lsp.buf.hover
+---@diagnostic disable-next-line: duplicate-set-field
+vim.lsp.buf.hover = function()
+  return hover({
+    max_height = math.floor(vim.o.lines * 0.5),
+    max_width = math.floor(vim.o.columns * 0.4),
+  })
+end
 
--- Enable the configured servers.
-vim.lsp.enable({
-  "bashls",
-  "clangd",
-  "gopls",
-  "html",
-  "hyprls",
-  "jsonls",
-  "luals",
-  "neocmake",
-  "nil_ls",
-  "pyright",
-  "rust_analyzer",
-  "texlab",
-})
+local signature_help = vim.lsp.buf.signature_help
+---@diagnostic disable-next-line: duplicate-set-field
+vim.lsp.buf.signature_help = function()
+  return signature_help({
+    max_height = math.floor(vim.o.lines * 0.5),
+    max_width = math.floor(vim.o.columns * 0.4),
+  })
+end
 
--- Autocommand group for LSP related actions
-local lsp_augroup =
-    vim.api.nvim_create_augroup("MyLspConfigGroup", { clear = true })
+-- Update mappings when registering dynamic capabilities.
+local register_capability = vim.lsp.handlers[methods.client_registerCapability]
+vim.lsp.handlers[methods.client_registerCapability] = function(err, res, ctx)
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  if not client then
+    return
+  end
 
--- LSP key mappings and marking buffer for ready notification
+  on_attach(client, vim.api.nvim_get_current_buf())
+
+  return register_capability(err, res, ctx)
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = lsp_augroup,
-  desc = "Setup LSP keymaps and mark buffer for ready notification",
+  desc = "Configure LSP keymaps",
   callback = function(args)
-    local client_id = args.client_id or (args.data and args.data.client_id)
-    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    if not client_id then
-      vim.notify(
-        "LspAttach event missing client_id.",
-        vim.log.levels.WARN,
-        { title = "LSP Config Error" }
-      )
-      return
-    end
-
-    -- Set up keybinding for 'gd' to go to definition
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
-
-    local client = vim.lsp.get_client_by_id(client_id)
+    -- I don't think this can happen but it's a wild world out there.
     if not client then
-      vim.notify(
-        "Could not get LSP client object for ID: " .. tostring(client_id),
-        vim.log.levels.WARN,
-        { title = "LSP Config Error" }
-      )
       return
     end
 
-    -- Mark this buffer and client as needing a "ready" notification
-    -- Store client_id to potentially show the correct name later
-    if not pending_lsp_ready_notify[bufnr] then
-      pending_lsp_ready_notify[bufnr] = {}
-    end
-    pending_lsp_ready_notify[bufnr][client_id] = true -- Mark this client as pending for this buffer
-
-    if client.server_capabilities.documentHighlightProvider then
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-        group = lsp_augroup, -- Assign to the group
-        buffer = bufnr,
-        desc = "Highlight references under cursor",
-        callback = vim.lsp.buf.document_highlight,
-      })
-
-      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-        group = lsp_augroup, -- Assign to the group
-        buffer = bufnr,
-        desc = "Clear reference highlights",
-        callback = vim.lsp.buf.clear_references,
-      })
-    end
+    on_attach(client, args.buf)
   end,
 })
 
--- Notify when diagnostics are first published after LSP attach
-vim.api.nvim_create_autocmd("DiagnosticChanged", {
-  group = lsp_augroup,
-  pattern = "*", -- Apply to all buffers
-  desc = "Notify when LSP seems ready (first diagnostics received)",
-  callback = function(args)
-    local bufnr = args.buf
-    -- Check if we are waiting for a notification for this buffer
-    if pending_lsp_ready_notify[bufnr] then
-      -- Check if there are actually diagnostics now
-      -- Use severity filter to avoid triggering on hints/info if desired
-      local diags = vim.diagnostic.get(bufnr, { severity = vim.diagnostic.severity.WARN }) -- Or INFO/ERROR
-      if #diags > 0 then
-        -- Find *which* client(s) were pending for this buffer
-        local notified_clients = {}
-        for client_id, _ in pairs(pending_lsp_ready_notify[bufnr]) do
-          local client = vim.lsp.get_client_by_id(client_id)
-          if client and client.name then
-            table.insert(notified_clients, client.name)
-          else
-            table.insert(notified_clients, "LSP Client " .. client_id) -- Fallback name
-          end
-        end
-
-        if #notified_clients > 0 then
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
-          local filename = vim.fn.fnamemodify(bufname, ":t")
-          if filename == "" then
-            filename = "[No Name]"
-          end
-
-          -- Create the notification message
-          local server_names = table.concat(notified_clients, ", ")
-          vim.notify(
-            string.format("LSP ready: %s for %s", server_names, filename),
-            vim.log.levels.INFO,
-            { title = "LSP Status" }
-          )
-
-          -- Stop waiting for notifications for this buffer
-          pending_lsp_ready_notify[bufnr] = nil
-        end
-      end
-    end
+-- Set up LSP servers.
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+  once = true,
+  callback = function()
+    local server_configs = vim
+      .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
+      :map(function(file)
+        return vim.fn.fnamemodify(file, ":t:r")
+      end)
+      :totable()
+    vim.lsp.enable(server_configs)
   end,
 })
 
-vim.api.nvim_create_user_command('LspRestart', function()
-  vim.notify('Currently TO BE IMPLEMENTED', vim.log.levels.WARN, { title = 'LSP Config Error' })
-end, {
-  desc = 'Currently TO BE IMPLEMENTED',
-})
-
-vim.api.nvim_create_user_command("LspInfo", function()
-  vim.api.nvim_command("checkhealth vim.lsp")
-end, {
-  desc = 'Print LSP clients for the current buffer',
-})
+return M
