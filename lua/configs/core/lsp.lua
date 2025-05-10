@@ -15,9 +15,9 @@ local M = {}
 -- Define the diagnostic signs directly using the characters you want.
 local diagnostic_signs = {
   Error = "X", -- Using 'X' for Error
-  Warn = "!", -- Using '!' for Warn
-  Info = "+", -- Using '+' for Info (or adjust as needed)
-  Hint = "-", -- Using '-' for Hint (or adjust as needed)
+  Warn = "!",  -- Using '!' for Warn
+  Info = "+",  -- Using '+' for Info (or adjust as needed)
+  Hint = "-",  -- Using '-' for Hint (or adjust as needed)
 }
 
 -- Disable inlay hints initially (and enable if needed with my ToggleInlayHints command).
@@ -115,14 +115,11 @@ local function on_attach(client, bufnr)
   end
 end
 
--- Define the diagnostic signs using your specified characters.
-for severity, text in pairs(diagnostic_signs) do
-  local hl = "DiagnosticSign" .. severity:sub(1, 1) .. severity:sub(2):lower()
-  vim.fn.sign_define(hl, { text = text, texthl = hl })
-end
-
 -- Diagnostic configuration.
 vim.diagnostic.config({
+  signs = {
+    text = diagnostic_signs,
+  },
   virtual_text = {
     prefix = "",
     spacing = 2,
@@ -156,8 +153,6 @@ vim.diagnostic.config({
       return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
     end,
   },
-  -- Enable signs in the gutter using the defined signs.
-  signs = true,
   -- Added virtual_lines configuration for toggling
   virtual_lines = false, -- Start with virtual lines off
 })
@@ -236,11 +231,11 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   once = true,
   callback = function()
     local server_configs = vim
-      .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
-      :map(function(file)
-        return vim.fn.fnamemodify(file, ":t:r")
-      end)
-      :totable()
+        .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
+        :map(function(file)
+          return vim.fn.fnamemodify(file, ":t:r")
+        end)
+        :totable()
     vim.lsp.enable(server_configs)
   end,
 })
