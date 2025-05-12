@@ -4,7 +4,6 @@ local modules = {
   "configs.core.autocommands",
   "configs.core.usercommands",
   "configs.core.netrw",
-  "configs.core.color",
   "configs.core.lsp",
   "configs.core.plugins"
 }

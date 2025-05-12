@@ -7,9 +7,10 @@ function Safe_require(mod)
     vim.notify("Failed to load " .. mod .. ": " .. module_or_err, vim.log.levels.ERROR)
     return nil
   end
-   return module_or_err
+  return module_or_err
 end
 
 Safe_require("configs.core")
 Safe_require("configs.lazy")
+Safe_require("configs.core.color")
 Safe_require("configs.core.autocomplete")
