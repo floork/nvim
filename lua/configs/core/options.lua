@@ -17,7 +17,15 @@ opt.expandtab = true
 opt.smartindent = true
 
 opt.list = true
-opt.listchars = { tab = "» ", space = "·", trail = "·", nbsp = "␣" }
+opt.listchars = {
+  eol = "$",
+  extends = ">",
+  nbsp = "␣",
+  precedes = "<",
+  space = "·",
+  tab = "» ",
+  trail = "·",
+}
 opt.wrap = false
 opt.timeoutlen = 1000
 opt.inccommand = "split"
