@@ -10,15 +10,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- Set trigger characters for autocompletion
     client.server_capabilities.completionProvider.triggerCharacters =
-        vim.split("qwertyuiopasdfghjklzxcvbnm. ", "")
-
-    -- Listen to insert mode text changes and fetch completions.
-    vim.api.nvim_create_autocmd({ "TextChangedI" }, {
-      buffer = args.buf,
-      callback = function()
-        vim.lsp.completion.get()
-      end,
-    })
+        vim.split("qwertyuiopasdfghjklzxcvbnm.", "")
 
     vim.lsp.completion.enable(true, client.id, args.buf, {
       autotrigger = true,
