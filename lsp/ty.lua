@@ -1,5 +1,5 @@
 return {
-  cmd = { "ruff", "server" },
+  cmd = { "ty", "server" },
   root_markers = {
     ".git", -- Common Git marker
     "pyproject.toml", -- Modern Python packaging standard

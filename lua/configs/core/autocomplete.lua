@@ -24,6 +24,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.log.levels.INFO
       )
     end
+
     vim.lsp.completion.enable(true, client.id, args.buf, {
       autotrigger = true,
     })
