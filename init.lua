@@ -1,5 +1,5 @@
 _G.USE_BUILDINS = false
-_G.USE_NETRW = false
+_G.USE_NETRW = true
 
 function Safe_require(mod)
   local ok, module_or_err = pcall(require, mod)
