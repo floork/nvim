@@ -59,6 +59,7 @@ return {
         tex = { "tex_fmt" }, -- LaTeX formatter (tex-fmt)
         toml = { "taplo" }, -- TOML formatter (prettier)
         yml = { "prettier" }, -- YAML formatter (prettier)
+        zig = { "zig_format" }, -- Zig formatter
       },
 
       format_on_save = function(bufnr)
@@ -76,6 +77,12 @@ return {
     conform.formatters.my_cpp = {
       command = "clang-format",
       args = clang_format_command(),
+      stdin = true,
+    }
+
+    conform.formatters.zig_format = {
+      command = "zig",
+      args = { "fmt", "--stdin" },
       stdin = true,
     }
 
