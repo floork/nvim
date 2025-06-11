@@ -10,6 +10,8 @@ function Safe_require(mod)
   return module_or_err
 end
 
+vim.log.level = vim.log.levels.INFO
+
 Safe_require("configs.core")
 Safe_require("configs.lazy")
 Safe_require("configs.core.color")

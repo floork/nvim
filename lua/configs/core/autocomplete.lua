@@ -15,10 +15,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- Check if the client supports the textDocument/completion method
     if not client:supports_method("textDocument/completion") then
-      vim.notify(
-        "LSP server for " .. client.name .. " does not support textDocument/completion.",
-        vim.log.levels.INFO
-      )
+      if vim.log.level <= vim.log.levels.DEBUG then
+        vim.notify(
+          "LSP server for " .. client.name .. " does not support textDocument/completion.",
+          vim.log.levels.DEBUG
+        )
+      end
     end
 
     vim.lsp.completion.enable(true, client.id, args.buf, {
@@ -57,13 +59,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end,
       })
     else
-      vim.notify(
-        "LSP server for "
-          .. client.name
-          .. " does not support completionItem/resolve. "
-          .. "Documentation preview will not be available.",
-        vim.log.levels.DEBUG
-      )
+      if vim.log.level <= vim.log.levels.DEBUG then
+        vim.notify(
+          "LSP server for "
+            .. client.name
+            .. " does not support completionItem/resolve. "
+            .. "Documentation preview will not be available.",
+          vim.log.levels.DEBUG
+        )
+      end
     end
   end,
 })
