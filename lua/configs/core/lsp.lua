@@ -15,9 +15,9 @@ local M = {}
 -- Define the diagnostic signs directly using the characters you want.
 local diagnostic_signs = {
   Error = "X", -- Using 'X' for Error
-  Warn = "!",  -- Using '!' for Warn
-  Info = "+",  -- Using '+' for Info (or adjust as needed)
-  Hint = "-",  -- Using '-' for Hint (or adjust as needed)
+  Warn = "!", -- Using '!' for Warn
+  Info = "+", -- Using '+' for Info (or adjust as needed)
+  Hint = "-", -- Using '-' for Hint (or adjust as needed)
 }
 
 -- Disable inlay hints initially (and enable if needed with my ToggleInlayHints command).
@@ -39,22 +39,25 @@ local function on_attach(client, bufnr)
     vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
   end
 
-  keymap("[d", function()
-    vim.diagnostic.jump({ count = -1 })
-  end, "Previous diagnostic")
-  keymap("]d", function()
-    vim.diagnostic.jump({ count = 1 })
-  end, "Next diagnostic")
-  keymap("[e", function()
-    vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
-  end, "Previous error")
-  keymap("]e", function()
-    vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
-  end, "Next error")
+  keymap("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Previous diagnostic")
+  keymap("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next diagnostic")
+  keymap(
+    "[e",
+    function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end,
+    "Previous error"
+  )
+  keymap(
+    "]e",
+    function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end,
+    "Next error"
+  )
 
   if v.major == 0 and v.minor > 11 then
     vim.lsp.document_color.enable(true, bufnr)
-    vim.notify("Please look at lsp.lua for vim.lsp.document_color.enable(true, bufnr)", vim.log.levels.WARN)
+    vim.notify(
+      "Please look at lsp.lua for vim.lsp.document_color.enable(true, bufnr)",
+      vim.log.levels.WARN
+    )
   end
 
   if client:supports_method(methods.textDocument_definition) then
@@ -64,7 +67,8 @@ local function on_attach(client, bufnr)
   keymap("gb", "<C-o>", "Go back in jump list")
 
   if client:supports_method(methods.textDocument_documentHighlight) then
-    local under_cursor_highlights_group = vim.api.nvim_create_augroup("mariasolos/cursor_highlights", { clear = false })
+    local under_cursor_highlights_group =
+      vim.api.nvim_create_augroup("mariasolos/cursor_highlights", { clear = false })
     vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
       group = under_cursor_highlights_group,
       desc = "Highlight references under the cursor",
@@ -80,7 +84,8 @@ local function on_attach(client, bufnr)
   end
 
   if client:supports_method(methods.textDocument_inlayHint) then
-    local inlay_hints_group = vim.api.nvim_create_augroup("mariasolos/toggle_inlay_hints", { clear = false })
+    local inlay_hints_group =
+      vim.api.nvim_create_augroup("mariasolos/toggle_inlay_hints", { clear = false })
 
     if vim.g.inlay_hints then
       -- Initial inlay hint display.
@@ -96,9 +101,7 @@ local function on_attach(client, bufnr)
       desc = "Enable inlay hints",
       buffer = bufnr,
       callback = function()
-        if vim.g.inlay_hints then
-          vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
-        end
+        if vim.g.inlay_hints then vim.lsp.inlay_hint.enable(false, { bufnr = bufnr }) end
       end,
     })
 
@@ -107,9 +110,7 @@ local function on_attach(client, bufnr)
       desc = "Disable inlay hints",
       buffer = bufnr,
       callback = function()
-        if vim.g.inlay_hints then
-          vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-        end
+        if vim.g.inlay_hints then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
       end,
     })
   end
@@ -136,9 +137,7 @@ vim.diagnostic.config({
         vim.diagnostic.severity[diagnostic.severity]:sub(1, 1), -- Use first letter of severity
         special_sources[diagnostic.source] or diagnostic.source or ""
       )
-      if diagnostic.code then
-        message = string.format("%s[%s]", message, diagnostic.code)
-      end
+      if diagnostic.code then message = string.format("%s[%s]", message, diagnostic.code) end
 
       return message .. " "
     end,
@@ -163,9 +162,7 @@ assert(show_handler)
 local hide_handler = vim.diagnostic.handlers.virtual_text.hide
 vim.diagnostic.handlers.virtual_text = {
   show = function(ns, bufnr, diagnostics, opts)
-    table.sort(diagnostics, function(diag1, diag2)
-      return diag1.severity > diag2.severity
-    end)
+    table.sort(diagnostics, function(diag1, diag2) return diag1.severity > diag2.severity end)
     return show_handler(ns, bufnr, diagnostics, opts)
   end,
   hide = hide_handler,
@@ -203,9 +200,7 @@ end
 local register_capability = vim.lsp.handlers[methods.client_registerCapability]
 vim.lsp.handlers[methods.client_registerCapability] = function(err, res, ctx)
   local client = vim.lsp.get_client_by_id(ctx.client_id)
-  if not client then
-    return
-  end
+  if not client then return end
 
   on_attach(client, vim.api.nvim_get_current_buf())
 
@@ -218,9 +213,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
     -- I don't think this can happen but it's a wild world out there.
-    if not client then
-      return
-    end
+    if not client then return end
 
     on_attach(client, args.buf)
   end,
@@ -231,11 +224,9 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   once = true,
   callback = function()
     local server_configs = vim
-        .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
-        :map(function(file)
-          return vim.fn.fnamemodify(file, ":t:r")
-        end)
-        :totable()
+      .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
+      :map(function(file) return vim.fn.fnamemodify(file, ":t:r") end)
+      :totable()
     vim.lsp.enable(server_configs)
   end,
 })
