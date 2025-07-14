@@ -1,9 +1,11 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  branch = "main",
   event = { "BufReadPre", "BufNewFile" },
   build = ":TSUpdate",
   config = function()
-    local treesitter = require("nvim-treesitter.configs")
+    local status_ok, configs = pcall(require, "nvim-treesitter.configs")
+    if not status_ok then return end
 
     ---@class ParserInfo
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()

@@ -16,18 +16,19 @@ keymap.set("n", "D", '"_D', opts)
 
 -- Search and replace
 opts.desc = "Search and replace"
-keymap.set(
-  "n",
-  "<leader>s",
-  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  opts
-)
+keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts)
 
 -- Move Lines UP and DOWN
 opts.desc = "Move line down"
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)
 opts.desc = "Move line up"
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts)
+
+-- Better indenting in visual mode
+opts.desc = "Indent left and reselect"
+keymap.set("v", "<", "<gv", opts)
+opts.desc = "Indent right and reselect"
+keymap.set("v", ">", ">gv", opts)
 
 -- Join lines without moving cursor
 opts.desc = "Join lines without moving cursor"

@@ -1,7 +1,7 @@
 local unpack = table.unpack or unpack
 
 return {
-  cmd = { "lua-language-server" },
+  cmd = { "lua-lsp" },
   filetypes = { "lua" },
   root_markers = { ".luarc.json", ".luarc.jsonc" },
   settings = {
@@ -25,8 +25,8 @@ return {
       -- diagnostics = { disable = { 'missing-fields' } },
       tabWidth = 2,
       diagnostics = {
-        globals = { 'vim' }
-      }
+        globals = { "vim" },
+      },
     },
   },
 }

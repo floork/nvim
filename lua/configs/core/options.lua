@@ -48,9 +48,19 @@ opt.splitright = true
 opt.splitbelow = true
 opt.swapfile = false
 opt.backup = false
+opt.writebackup = false
 opt.undofile = true
+opt.undodir = vim.fn.expand("~/.vim/undodir")
 opt.updatetime = 50
 opt.scrolloff = 8
+opt.autoread = true
+opt.autowrite = false
+opt.hidden = true
+opt.errorbells = false
+vim.opt.autochdir = false
+vim.opt.iskeyword:append("-")
+vim.opt.modifiable = true
+vim.opt.encoding = "UTF-8"
 
 -- Spellcheck
 opt.spelllang = { "en", "de" }
@@ -62,10 +72,9 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 9999
 
 -- find
-vim.opt.path:append("**")
-vim.opt.wildmenu = true
-vim.opt.wildmode = { "longest:full", "full" }
-
+opt.path:append("**")
+opt.wildmenu = true
+opt.wildmode = { "longest:full", "full" }
 
 -- Clipboard
 opt.clipboard:append("unnamedplus") -- use system clipboard as default register
